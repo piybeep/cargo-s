@@ -7,7 +7,6 @@ import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import * as compression from 'compression';
 import helmet from 'helmet';
-import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
