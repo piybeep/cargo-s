@@ -20,7 +20,7 @@ export class Auth {
   userId: string;
 
   @Column({ type: 'boolean', default: false })
-  rememberMe: boolean
+  rememberMe: boolean;
 
   @CreateDateColumn()
   createdAt: Date;
