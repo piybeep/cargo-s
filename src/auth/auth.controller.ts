@@ -28,8 +28,10 @@ import {
   ApiOperation,
   ApiParam,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
+@ApiTags('Сессии')
 @Controller('auth')
 export class AuthController {
   constructor(
