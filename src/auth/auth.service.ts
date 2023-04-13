@@ -144,7 +144,7 @@ export class AuthService {
     if (code !== user.code) {
       throw new BadRequestException(`Invalid code`);
     }
-    const newUser = await this.userService.update(
+    await this.userService.update(
       { email: data.email },
       { password: this.hashData(data.password), code: String(randomInt(9999)) },
     );
