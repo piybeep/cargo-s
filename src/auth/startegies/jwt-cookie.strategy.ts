@@ -18,7 +18,7 @@ export class JwtCookieStrategy extends PassportStrategy(
     };
     super({
       jwtFromRequest: cookieExtractor,
-      secretOrKey: process.env.JWT_SECRET ,
+      secretOrKey: process.env.JWT_SECRET,
       ignoreExpiration: false,
       passReqToCallback: true,
     });

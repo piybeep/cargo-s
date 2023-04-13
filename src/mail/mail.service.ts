@@ -11,14 +11,14 @@ export class MailService {
   ) {}
 
   async sendNewApplicationMail(code: string) {
-    console.log(this.configService.get<string>('MAIL_TO'))
+    console.log(this.configService.get<string>('MAIL_TO'));
     return await this.mailerService
       .sendMail({
         to: this.configService.get<string>('MAIL_TO'),
         subject: 'Новая заявка',
         template: join(__dirname, '../mail/templates/', 'resetCode.tmp.hbs'),
         context: {
-          code
+          code,
         },
       })
       .catch((e) => {

@@ -8,7 +8,7 @@ export class LoginUserResponseDto {
   })
   id: string;
   @ApiProperty({
-    type:'string',
+    type: 'string',
     example: 'test@gmail.com',
     description: 'email пользователя',
   })

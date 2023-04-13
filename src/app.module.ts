@@ -10,7 +10,7 @@ import { getMailConfig } from './configs/mail.config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath:'.env',
+      envFilePath: '.env',
       isGlobal: true,
     }),
     MailerModule.forRootAsync({

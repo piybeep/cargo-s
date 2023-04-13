@@ -18,13 +18,13 @@ import { MailModule } from 'src/mail/mail.module';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: getJWTConfig
+      useFactory: getJWTConfig,
     }),
     PassportModule,
     UserModule,
     MailModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService,JwtCookieStrategy],
+  providers: [AuthService, JwtCookieStrategy],
 })
 export class AuthModule {}
