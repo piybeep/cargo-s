@@ -5,6 +5,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateUserBodyDto } from './dto/create-user-body.dto';
 import { hashSync } from 'bcrypt';
 import { UpdateUserDto } from './dto';
+import { LoginUserResponseDto } from 'src/auth/dto';
 
 @Injectable()
 export class UserService {
@@ -12,11 +13,12 @@ export class UserService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  async signUp(userData: CreateUserBodyDto): Promise<User | undefined> {
+  async signUp(userData: CreateUserBodyDto): Promise<LoginUserResponseDto | undefined> {
     userData.password = hashSync(userData.password, 10);
     const user = this.userRepository.create(userData);
     await this.userRepository.save(user);
     delete user.password;
+    delete user.code
     return user;
   }
 
