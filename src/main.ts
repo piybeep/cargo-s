@@ -6,7 +6,7 @@ import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import * as compression from 'compression';
 import helmet from 'helmet';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -30,7 +30,7 @@ async function bootstrap() {
   );
   app.enableCors({
     origin: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
     credentials: true,
   });
 
