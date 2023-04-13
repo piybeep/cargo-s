@@ -2,15 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppConfigService } from './configs/app-config.service';
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import * as compression from 'compression';
 import helmet from 'helmet';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const appConfig = app.get(AppConfigService);
+  const configService = app.get(ConfigService);
   const config = new DocumentBuilder()
     .setTitle('Cargo API')
     .setVersion('1.0')
@@ -38,6 +38,6 @@ async function bootstrap() {
 
   SwaggerModule.setup('/api/doc', app, document);
 
-  await app.listen(appConfig.serverPort);
+  await app.listen(configService.get<number>('API_PORT'));
 }
 bootstrap();
