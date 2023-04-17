@@ -18,6 +18,7 @@ import { getMailConfig } from './configs/mail.config';
       inject: [ConfigService],
       useFactory: getMailConfig,
     }),
+
     ThrottlerModule.forRoot({
       limit: 10,
       ttl: 60,
