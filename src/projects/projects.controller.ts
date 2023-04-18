@@ -9,12 +9,14 @@ import { Request } from 'express';
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
+  
   @ApiOperation({ summary: 'Получение всех проектов пользователя' })
   @ApiQuery({ name: 'page', description: 'Номер страницы начиная с 0' })
   @ApiQuery({ name: 'size', description: 'Количество объектов на странице' })
   @ApiQuery({ name: 'searchString', description: 'Строка поиска' })
   @ApiQuery({ name: 'sortField', description: 'Поле сортировки' })
   @ApiQuery({ name: 'sortDirection', description: 'Направление сортировки' })
+  
   // @UseGuards(JwtGuard))
   @Get('all')
   async getProjects(
