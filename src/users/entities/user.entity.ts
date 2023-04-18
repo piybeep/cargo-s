@@ -27,7 +27,6 @@ export class User {
   email: string;
 
   @ApiProperty({
-    //TODO: описать формат пароля
     name: 'password',
     description: `пароль пользователя (${{
       minLength: 5,
