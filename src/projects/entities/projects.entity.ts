@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from 'src/users/entities/user.entity';
 import {
+  BeforeRemove,
   Column,
   CreateDateColumn,
   Entity,
@@ -46,4 +48,6 @@ export class Project {
   @ManyToOne(() => User, (user) => user.projects)
   @JoinColumn({ name: 'userId' })
   user: User;
+
+  
 }

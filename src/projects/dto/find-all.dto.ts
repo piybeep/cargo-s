@@ -9,6 +9,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { SortDirectionEnum, SortFieldsEnum } from '../enums';
+import { Type } from 'class-transformer';
 
 export class FindAllProjectsDto {
   // @ApiProperty({
@@ -29,6 +30,7 @@ export class FindAllProjectsDto {
   @IsInt()
   @IsNotEmpty()
   @IsOptional()
+  @Type(()=>Number)
   page: number;
 
   @ApiProperty({
@@ -40,6 +42,7 @@ export class FindAllProjectsDto {
   @IsNotEmpty()
   @IsPositive()
   @IsOptional()
+  @Type(()=>Number)
   size: number;
 
   @ApiProperty({
@@ -47,9 +50,9 @@ export class FindAllProjectsDto {
     description: 'Строка поиска',
     required: false,
   })
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @IsOptional()
   searchString: string;
 
   @ApiProperty({
@@ -58,8 +61,9 @@ export class FindAllProjectsDto {
     required: false,
     default: SortFieldsEnum.DateUpdate,
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(SortFieldsEnum)
+  @IsNotEmpty()
   sortField: SortFieldsEnum;
 
   @ApiProperty({
@@ -69,6 +73,7 @@ export class FindAllProjectsDto {
     required: false,
     default: SortDirectionEnum.ASC,
   })
+  @IsOptional()
   @IsNotEmpty()
   @IsEnum(SortDirectionEnum)
   sortDirection: SortDirectionEnum;

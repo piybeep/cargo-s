@@ -52,7 +52,7 @@ export class AuthController {
   async login(
     @Res({ passthrough: true }) res: Response,
     @Body() userData: LoginUserBodyDto,
-  ) {
+  ) {  
     const { token, user } = await this.authService.login(userData);
     res.cookie(
       'token',
