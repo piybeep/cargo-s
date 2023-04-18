@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { postgresConfig } from './configs/postgres.config';
 import { AppConfigService } from './configs/app-config.service';
 import { AppConfigModule } from './configs/app-config.module';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { UserModule } from './users/users.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
       useFactory: postgresConfig,
     }),
     UserModule,
+    ProjectsModule,
   ],
 })
 export class AppModule {}
