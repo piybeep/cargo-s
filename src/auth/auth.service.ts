@@ -132,7 +132,6 @@ export class AuthService {
     if (!user) {
       throw new BadRequestException(`User ${email} not found`);
     }
-    console.log(user);
     await this.mailService.sendNewApplicationMail(user.code);
   }
 
