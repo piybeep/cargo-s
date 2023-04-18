@@ -29,7 +29,12 @@ export class User {
   @ApiProperty({
     //TODO: описать формат пароля
     name: 'password',
-    description: 'пароль пользователя ()',
+    description: `пароль пользователя (${{
+      minLength: 5,
+      minSymbols: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+    }})`,
     example: 'GY32Hdja2',
   })
   @Column({ type: 'text' })

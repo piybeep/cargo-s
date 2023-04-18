@@ -9,7 +9,7 @@ import {
 export class ResetPasswordDto {
   @ApiProperty({
     type: 'string',
-    description: 'почта пользователя',
+    description: ' Почта пользователя',
     example: 'admin@mail.ru',
     required: true,
   })

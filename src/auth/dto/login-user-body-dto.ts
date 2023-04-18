@@ -39,7 +39,7 @@ export class LoginUserBodyDto {
     example: true,
     required: false,
     type: 'boolean',
-    description: 'параметр "Запомнить меня"',
+    description: 'Параметр "Запомнить меня"',
   })
   @IsNotEmpty()
   @IsBoolean()
