@@ -1,5 +1,3 @@
-import { CreateProjectResponseDto } from "./create-response.dto";
+import { CreateProjectResponseDto } from './create-response.dto';
 
-export class GetOneProjectDto extends CreateProjectResponseDto{
-
-}
+export class GetOneProjectDto extends CreateProjectResponseDto {}

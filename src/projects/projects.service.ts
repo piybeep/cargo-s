@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
-  Req,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Like, Repository } from 'typeorm';
@@ -15,7 +14,6 @@ import {
 } from './dto';
 import { Project } from './entities/projects.entity';
 import { SortDirectionEnum, SortFieldsEnum } from './enums';
-import { request } from 'express';
 import { UserService } from 'src/users/users.service';
 import { GetOneProjectDto } from './dto/get-one.dto';
 

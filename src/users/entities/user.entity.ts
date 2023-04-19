@@ -59,6 +59,6 @@ export class User {
   @OneToMany(() => Auth, (auth) => auth.user)
   auths: Auth[];
 
-  @OneToMany(()=>Project, (project)=>project.user)
-  projects: Project[]
+  @OneToMany(() => Project, (project) => project.user)
+  projects: Project[];
 }

@@ -22,7 +22,7 @@ export class GetAllProjectsResponseDto {
     description: 'Массив объектов проектов',
   })
   data: Project[];
-  
+
   @ApiProperty({
     example: 2,
     description: 'Количество всех найденых объектов',

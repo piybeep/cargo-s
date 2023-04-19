@@ -15,13 +15,13 @@ export class UserResponseDto {
 
   @ApiProperty({
     example: '2023-04-19T05:56:59.641Z',
-    description: 'Дата и время обновления данных пользователя'
+    description: 'Дата и время обновления данных пользователя',
   })
   updatedAt: Date;
 
   @ApiProperty({
     example: '2023-04-19T05:56:59.641Z',
-    description: 'Дата и время создания пользователя'
+    description: 'Дата и время создания пользователя',
   })
   createdAt: Date;
 }

@@ -32,13 +32,13 @@ export class CreateProjectResponseDto {
 
   @ApiProperty({
     example: '2023-04-19T05:56:59.641Z',
-    description: 'Дата и время обновления данных проекта'
+    description: 'Дата и время обновления данных проекта',
   })
   updatedAt: Date;
 
   @ApiProperty({
     example: '2023-04-19T05:56:59.641Z',
-    description: 'Дата и время создания проекта'
+    description: 'Дата и время создания проекта',
   })
   createdAt: Date;
 }
