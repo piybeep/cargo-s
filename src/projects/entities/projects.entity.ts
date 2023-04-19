@@ -37,9 +37,17 @@ export class Project {
   @Column()
   userId: string;
 
+  @ApiProperty({
+    example: '2023-04-19T05:56:59.641Z',
+    description: 'Дата и время обновления данных проекта',
+  })
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @ApiProperty({
+    example: '2023-04-19T05:56:59.641Z',
+    description: 'Дата и время создания проекта',
+  })
   @CreateDateColumn()
   createdAt: Date;
 
@@ -48,6 +56,4 @@ export class Project {
   @ManyToOne(() => User, (user) => user.projects)
   @JoinColumn({ name: 'userId' })
   user: User;
-
-  
 }

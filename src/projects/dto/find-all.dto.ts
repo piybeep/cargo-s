@@ -6,20 +6,11 @@ import {
   IsOptional,
   IsPositive,
   IsString,
-  IsUUID,
 } from 'class-validator';
 import { SortDirectionEnum, SortFieldsEnum } from '../enums';
 import { Type } from 'class-transformer';
 
 export class FindAllProjectsDto {
-  // @ApiProperty({
-  //   example: '0d1d44f2-a78c-410d-8e1a-9ce44e9f9876',
-  //   description: 'Id пользователя',
-  //   required: true,
-  // })
-  // @IsUUID(4)
-  // userId: string;
-
   @ApiProperty({
     example: 1,
     description: 'Страница начиная с 0',
@@ -30,7 +21,7 @@ export class FindAllProjectsDto {
   @IsInt()
   @IsNotEmpty()
   @IsOptional()
-  @Type(()=>Number)
+  @Type(() => Number)
   page: number;
 
   @ApiProperty({
@@ -42,7 +33,7 @@ export class FindAllProjectsDto {
   @IsNotEmpty()
   @IsPositive()
   @IsOptional()
-  @Type(()=>Number)
+  @Type(() => Number)
   size: number;
 
   @ApiProperty({

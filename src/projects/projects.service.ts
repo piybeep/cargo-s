@@ -11,11 +11,13 @@ import {
   CreateProjectDto,
   FindAllProjectsDto,
   GetAllProjectsResponseDto,
+  UpdateProjectDto,
 } from './dto';
 import { Project } from './entities/projects.entity';
 import { SortDirectionEnum, SortFieldsEnum } from './enums';
 import { request } from 'express';
 import { UserService } from 'src/users/users.service';
+import { GetOneProjectDto } from './dto/get-one.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -30,6 +32,7 @@ export class ProjectsService {
     user: any,
   ): Promise<GetAllProjectsResponseDto> {
     const userId = user.sub;
+
     if (!data.searchString) data.searchString = '';
     if (!data.sortDirection) data.sortDirection = SortDirectionEnum.ASC;
     if (!data.sortField) data.sortField = SortFieldsEnum.DateUpdate;
@@ -63,7 +66,7 @@ export class ProjectsService {
     return project;
   }
 
-  async updateProject(id: string, data: CreateProjectDto): Promise<Project> {
+  async updateProject(id: string, data: UpdateProjectDto): Promise<Project> {
     const project = await this.projectRepository.findBy({ id });
     if (project.length == 0) {
       throw new BadRequestException(`Проект ${id} не найден`);
@@ -83,14 +86,17 @@ export class ProjectsService {
     return await this.projectRepository.findOneBy({ id });
   }
 
-  async getProject(id: string): Promise<Project> {
-    return await this.projectRepository.findOne({
+  async getProject(id: string): Promise<GetOneProjectDto> {
+    const project = await this.projectRepository.findOne({
       where: { id },
       relations: ['user'],
     });
+    delete project.user.password;
+    delete project.user.code;
+    return project;
   }
 
-  async deleteProject(id: string){
-    await this.projectRepository.delete({id})
+  async deleteProject(id: string) {
+    await this.projectRepository.delete({ id });
   }
 }

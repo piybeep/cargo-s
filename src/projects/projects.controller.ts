@@ -17,24 +17,56 @@ import {
   CreateProjectDto,
   FindAllProjectsDto,
   GetAllProjectsResponseDto,
+  UpdateProjectDto,
 } from './dto';
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Request } from 'express';
 import { JwtGuard } from 'src/auth/guards/token.guard';
+import { CreateProjectResponseDto } from './dto/create-response.dto';
+import { GetOneProjectDto } from './dto/get-one.dto';
 
 @ApiTags('Проекты')
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
   @ApiOperation({ summary: 'Получение всех проектов пользователя' })
-  @ApiQuery({ name: 'page', description: 'Номер страницы начиная с 0' })
-  @ApiQuery({ name: 'size', description: 'Количество объектов на странице' })
-  @ApiQuery({ name: 'searchString', description: 'Строка поиска' })
-  @ApiQuery({ name: 'sortField', description: 'Поле сортировки' })
-  @ApiQuery({ name: 'sortDirection', description: 'Направление сортировки' })
-
-  //TODO: ДОПИСАТЬ ДОКУ
-  @ApiResponse({ status: 200, description: '' })
+  @ApiQuery({
+    name: 'page',
+    description: 'Номер страницы начиная с 0',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'size',
+    description: 'Количество объектов на странице',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'searchString',
+    description: 'Строка поиска',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'sortField',
+    description: 'Поле сортировки',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'sortDirection',
+    description: 'Направление сортировки',
+    required: false,
+  })
+  @ApiResponse({ status: 200, type: GetAllProjectsResponseDto })
+  @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
+  @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @Get('all')
   async getProjects(
@@ -45,7 +77,11 @@ export class ProjectsController {
   }
 
   @ApiOperation({ summary: 'Создание проекта' })
-  //TODO: ДОПИСАТЬ ДОКУ
+  @ApiBody({ type: CreateProjectDto, description: 'Имя проекта' })
+  @ApiResponse({ status: 201, type: CreateProjectResponseDto })
+  @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
+  @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @Post()
   async createProject(
@@ -56,21 +92,54 @@ export class ProjectsController {
   }
 
   @ApiOperation({ summary: 'Обновление имени проекта' })
+  @ApiParam({
+    name: 'id',
+    description: 'Id проекта',
+    example: '26d30416-170e-4710-adaa-013216a2f48d',
+  })
+  @ApiBody({
+    type: UpdateProjectDto,
+  })
+  @ApiResponse({ status: 200, type: Project })
+  @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
+  @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Put(':id')
   async updateProject(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() data: CreateProjectDto,
+    @Body() data: UpdateProjectDto,
   ) {
     return await this.projectsService.updateProject(id, data);
   }
 
-  @ApiOperation({ summary: 'Получение проекта по Id'})
+  @ApiOperation({ summary: 'Получение проекта по Id' })
+  @ApiParam({
+    name: 'id',
+    description: 'Id проекта',
+    example: '26d30416-170e-4710-adaa-013216a2f48d',
+  })
+  @ApiResponse({ status: 200, type: GetOneProjectDto })
+  @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
+  @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Get(':id')
   async getProject(@Param('id', ParseUUIDPipe) id: string) {
     return await this.projectsService.getProject(id);
   }
 
-  @ApiOperation({ summary: ''})
+  @ApiOperation({ summary: 'Удаление проекта' })
+  @ApiParam({
+    name: 'id',
+    description: 'Id проекта',
+    example: '26d30416-170e-4710-adaa-013216a2f48d',
+  })
+  @ApiResponse({ status: 200, description: 'OK' })
+  @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
+  @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Delete(':id')
   async deleteProject(@Param('id', ParseUUIDPipe) id: string) {
     return await this.projectsService.deleteProject(id);
