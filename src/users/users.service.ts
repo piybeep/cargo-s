@@ -19,6 +19,8 @@ export class UserService {
     userData.password = hashSync(userData.password, 10);
     const user = this.userRepository.create(userData);
     await this.userRepository.save(user);
+    delete user.password;
+    delete user.code;
     return user;
   }
 
