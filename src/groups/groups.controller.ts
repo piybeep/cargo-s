@@ -26,7 +26,7 @@ import { Group } from 'src/groups/entities';
 @Controller('groups')
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
-@ApiCookieAuth('token')
+  @ApiCookieAuth('token')
   @ApiOperation({
     summary: 'Создание группы',
   })

@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Project } from 'src/projects/entities/projects.entity';
 import {
-  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,

@@ -6,7 +6,6 @@ import {
   IsOptional,
   IsPositive,
   IsString,
-  isInt,
 } from 'class-validator';
 
 export class UpdateGroupDto {
