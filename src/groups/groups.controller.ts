@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -21,6 +22,7 @@ import {
 import { UpdateGroupDto } from './dto';
 import { GroupsService } from './groups.service';
 import { Group } from 'src/groups/entities';
+import { JwtGuard } from 'src/auth/guards/token.guard';
 
 @ApiTags('Группы')
 @Controller('groups')
@@ -38,11 +40,13 @@ export class GroupsController {
   @ApiResponse({ status: 201, type: Group })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @UseGuards(JwtGuard)
   @Post()
   async createGroup(@Query('projectId', ParseUUIDPipe) projectId: string) {
     return await this.groupsService.createGroup(projectId);
   }
 
+  @ApiCookieAuth('token')
   @ApiOperation({
     summary: 'Получение всех групп проекта, с поиском по наванию груза',
   })
@@ -60,6 +64,7 @@ export class GroupsController {
   @ApiResponse({ status: 201, type: [Group] })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @UseGuards(JwtGuard)
   @Get()
   async getAllGroups(
     @Query('projectId', ParseUUIDPipe) projectId: string,
@@ -68,6 +73,7 @@ export class GroupsController {
     return await this.groupsService.getAllGroups(projectId, searchString);
   }
 
+  @ApiCookieAuth('token')
   @ApiOperation({
     summary: 'Обновление имени, видимости и позиции группы',
   })
@@ -82,6 +88,7 @@ export class GroupsController {
   @ApiResponse({ status: 200, type: Group })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @UseGuards(JwtGuard)
   @Put(':id')
   async updateGroup(
     @Param('id', ParseUUIDPipe) id: string,
@@ -91,6 +98,7 @@ export class GroupsController {
     return await this.groupsService.updateGroup(id, data);
   }
 
+  @ApiCookieAuth('token')
   @ApiOperation({
     summary: 'Удаление группы с ее грузами',
   })
@@ -102,6 +110,7 @@ export class GroupsController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @UseGuards(JwtGuard)
   @Delete(':id')
   async deleteGroup(@Param('id', ParseUUIDPipe) id: string) {
     return await this.groupsService.deleteGroup(id);
