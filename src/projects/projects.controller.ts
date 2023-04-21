@@ -11,27 +11,27 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ProjectsService } from './projects.service';
-import { Project } from './entities/projects.entity';
+import { Request } from 'express';
+import { JwtGuard } from 'src/auth/guards/token.guard';
 import {
-  CreateProjectDto,
-  FindAllProjectsDto,
-  GetAllProjectsResponseDto,
-  UpdateProjectDto,
-} from './dto';
-import {
-  ApiBearerAuth,
   ApiBody,
+  ApiCookieAuth,
   ApiOperation,
   ApiParam,
   ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Request } from 'express';
-import { JwtGuard } from 'src/auth/guards/token.guard';
-import { CreateProjectResponseDto } from './dto/create-response.dto';
-import { GetOneProjectDto } from './dto/get-one.dto';
+import {
+  CreateProjectDto,
+  CreateProjectResponseDto,
+  FindAllProjectsDto,
+  GetAllProjectsResponseDto,
+  GetOneProjectDto,
+  UpdateProjectDto,
+} from './dto';
+import { ProjectsService } from './projects.service';
+import { Project } from './entities/projects.entity';
 
 @ApiTags('Проекты')
 @Controller('projects')
@@ -66,7 +66,7 @@ export class ProjectsController {
   @ApiResponse({ status: 200, type: GetAllProjectsResponseDto })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @ApiBearerAuth()
+  @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
   @Get('all')
   async getProjects(
@@ -81,7 +81,7 @@ export class ProjectsController {
   @ApiResponse({ status: 201, type: CreateProjectResponseDto })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @ApiBearerAuth()
+  @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
   @Post()
   async createProject(
@@ -103,7 +103,7 @@ export class ProjectsController {
   @ApiResponse({ status: 200, type: Project })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @ApiBearerAuth()
+  @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
   @Put(':id')
   async updateProject(
@@ -122,7 +122,7 @@ export class ProjectsController {
   @ApiResponse({ status: 200, type: GetOneProjectDto })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @ApiBearerAuth()
+  @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
   @Get(':id')
   async getProject(@Param('id', ParseUUIDPipe) id: string) {
@@ -138,7 +138,7 @@ export class ProjectsController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @ApiBearerAuth()
+  @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
   @Delete(':id')
   async deleteProject(@Param('id', ParseUUIDPipe) id: string) {

@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Group } from 'src/groups/entities';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
@@ -6,6 +7,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -55,4 +57,7 @@ export class Project {
   @ManyToOne(() => User, (user) => user.projects)
   @JoinColumn({ name: 'userId' })
   user: User;
+
+  @OneToMany(() => Group, (group) => group.project, { onDelete: 'CASCADE' })
+  groups: Group[];
 }

@@ -89,12 +89,15 @@ export class ProjectsService {
       where: { id },
       relations: ['user'],
     });
-    delete project.user.password;
-    delete project.user.code;
+    if (!project) throw new BadRequestException(`Project ${id} not found`);
+    delete project?.user?.password;
+    delete project?.user?.code;
     return project;
   }
 
   async deleteProject(id: string) {
+    const project = await this.projectRepository.findOneBy({ id });
+    if (!project) throw new BadRequestException(`Project ${id} not found`);
     await this.projectRepository.delete({ id });
   }
 }

@@ -7,6 +7,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { getMailConfig } from './configs/mail.config';
 import { UserModule } from './users/users.module';
 import { ProjectsModule } from './projects/projects.module';
+import { GroupsModule } from './groups/groups.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { ProjectsModule } from './projects/projects.module';
     AuthModule,
     UserModule,
     ProjectsModule,
+    GroupsModule,
   ],
 })
 export class AppModule {}
