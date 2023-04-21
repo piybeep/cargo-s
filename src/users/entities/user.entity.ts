@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Auth } from 'src/auth/entities';
+import { Project } from 'src/projects/entities/projects.entity';
 import {
   Column,
   CreateDateColumn,
@@ -34,7 +35,7 @@ export class User {
       minUppercase: 1,
       minNumbers: 1,
     }})`,
-    example: 'GY32Hdja2',
+    example: 'GY32(H-dja2',
   })
   @Column({ type: 'text' })
   password: string;
@@ -42,7 +43,7 @@ export class User {
   @ApiProperty({
     name: 'code',
     description: 'код для восстановления пароля',
-    example: '23nd7d2',
+    example: '2736',
   })
   @Column({ nullable: true, type: 'text' })
   code: string;
@@ -53,6 +54,11 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  /*  ASSOCIATIONS  */
+
   @OneToMany(() => Auth, (auth) => auth.user)
   auths: Auth[];
+
+  @OneToMany(() => Project, (project) => project.user)
+  projects: Project[];
 }

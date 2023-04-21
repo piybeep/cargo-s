@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { getMailConfig } from './configs/mail.config';
+import { UserModule } from './users/users.module';
+import { ProjectsModule } from './projects/projects.module';
+import { GroupsModule } from './groups/groups.module';
 
 @Module({
   imports: [
@@ -41,6 +43,8 @@ import { getMailConfig } from './configs/mail.config';
     }),
     AuthModule,
     UserModule,
+    ProjectsModule,
+    GroupsModule,
   ],
 })
 export class AppModule {}

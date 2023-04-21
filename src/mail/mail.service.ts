@@ -11,7 +11,6 @@ export class MailService {
   ) {}
 
   async sendNewApplicationMail(code: string) {
-    console.log(this.configService.get<string>('MAIL_TO'));
     return await this.mailerService
       .sendMail({
         to: this.configService.get<string>('MAIL_TO'),
