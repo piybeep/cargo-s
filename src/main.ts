@@ -26,7 +26,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(
     morgan(
-      `[date[clf]] :method :url :status :res[content-length] :response-time ms ":referrer" :remote-addr - :remote-user ":user-agent"`,
+      `[:date[clf]] :method :url :status :res[content-length] :response-time ms ":referrer" :remote-addr - :remote-user ":user-agent"`,
     ),
   );
   app.enableCors({
