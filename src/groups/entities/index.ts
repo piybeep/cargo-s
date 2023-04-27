@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Cargo } from 'src/cargos/entities';
 import { Project } from 'src/projects/entities/projects.entity';
 import {
   Column,
@@ -6,6 +7,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -65,4 +67,7 @@ export class Group {
   })
   @JoinColumn({ name: 'projectId' })
   project: Project;
+
+  @OneToMany(()=> Cargo, (cargo: Cargo) => cargo.groups)
+  cargo: Cargo;
 }

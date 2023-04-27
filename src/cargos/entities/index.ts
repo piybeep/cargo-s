@@ -4,10 +4,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { CargoTypes, TiersEnum } from '../enums';
+import { Transport } from 'src/transports/entities';
+import { Group } from 'src/groups/entities';
 
 @Entity('Cargos')
 export class Cargo {
@@ -127,4 +131,16 @@ export class Cargo {
   createdAt: Date;
 
   /*  ASSOCIATONS  */
+
+  @ManyToOne(() => Transport, (transport: Transport) => transport.cargo, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'transportId' })
+  transports: Transport[];
+
+  @ManyToOne(() => Group, (group: Group) => group.cargo, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'groupId' })
+  groups: Group[];
 }
