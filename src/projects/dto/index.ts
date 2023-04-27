@@ -12,5 +12,4 @@ export {
   GetAllProjectsResponseDto,
   GetOneProjectDto,
   UpdateProjectDto,
-
 };

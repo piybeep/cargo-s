@@ -37,12 +37,12 @@ const CookiePROD = (
 ): CookieOptions => {
   return {
     maxAge: rememberMe
-      ? configService.get<number>('EXPIRES_IN_3D')
+      ? configService.get<number>('EXPIRES_IN_30D')
       : configService.get<number>('EXPIRES_IN_1D'),
     expires: new Date(
       Date.now() +
         (rememberMe
-          ? configService.get<number>('EXPIRES_IN_3D')
+          ? configService.get<number>('EXPIRES_IN_30D')
           : configService.get<number>('EXPIRES_IN_1D')),
     ),
     httpOnly: true,
