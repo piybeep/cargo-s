@@ -17,10 +17,10 @@ export class CreateLoadSpaceResponseDto {
 
   @ApiProperty({ enum: LoadSpaceTypes })
   type: LoadSpaceTypes;
-  
+
   @ApiProperty({ example: true, description: 'Шаблон или нет' })
   isTemplate: boolean;
-  
+
   @ApiProperty({ enum: SizeUnits })
   sizeUnit: SizeUnits;
 

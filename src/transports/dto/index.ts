@@ -13,5 +13,5 @@ export {
   CreateTransportResponseDto,
   UpdateLoadSpaceDto,
   UpdateTransportDto,
-  UpdateTruckDto
+  UpdateTruckDto,
 };
