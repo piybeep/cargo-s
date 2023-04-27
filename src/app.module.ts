@@ -1,13 +1,14 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ThrottlerModule } from '@nestjs/throttler';
-import { AuthModule } from './auth/auth.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 import { getMailConfig } from './configs/mail.config';
-import { UserModule } from './users/users.module';
-import { ProjectsModule } from './projects/projects.module';
 import { GroupsModule } from './groups/groups.module';
+import { ProjectsModule } from './projects/projects.module';
+import { TransportsModule } from './transports/transports.module';
+import { UserModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { GroupsModule } from './groups/groups.module';
     UserModule,
     ProjectsModule,
     GroupsModule,
+    TransportsModule,
   ],
 })
 export class AppModule {}
