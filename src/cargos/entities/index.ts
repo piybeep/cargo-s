@@ -10,7 +10,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { CargoTypes, TiersEnum } from '../enums';
-import { Transport } from 'src/transports/entities';
 import { Group } from 'src/groups/entities';
 import { LoadSpace } from '../../transports/entities/loadSpace.entity';
 

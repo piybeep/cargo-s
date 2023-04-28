@@ -85,5 +85,7 @@ export class CargosController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @Delete(':id')
-  async deleteCargo(@Param('id', ParseUUIDPipe) id: string) {return this.cargoService.deleteCargo(id)}
+  async deleteCargo(@Param('id', ParseUUIDPipe) id: string) {
+    return this.cargoService.deleteCargo(id);
+  }
 }
