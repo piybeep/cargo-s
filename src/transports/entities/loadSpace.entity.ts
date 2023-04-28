@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { LoadSpaceTypes, SizeUnits, WeightUnits } from '../enums';
 import { Transport } from './transport.entity';
+import { Cargo } from 'src/cargos/entities';
 
 @Entity('LoadSpaces')
 export class LoadSpace {
@@ -58,4 +59,7 @@ export class LoadSpace {
 
   @OneToMany(() => Transport, (transport: Transport) => transport.loadSpace)
   transports: Transport[];
+
+  @OneToMany(() => Cargo, (cargo: Cargo) => cargo.loadSpace)
+  cargos: Cargo[];
 }

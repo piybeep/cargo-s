@@ -9,5 +9,6 @@ import { TransportsService } from './transports.service';
   imports: [TypeOrmModule.forFeature([Transport, LoadSpace])],
   controllers: [TransportsController],
   providers: [TransportsService],
+  exports: [TransportsService],
 })
 export class TransportsModule {}

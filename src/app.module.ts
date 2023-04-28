@@ -7,8 +7,9 @@ import { AuthModule } from './auth/auth.module';
 import { getMailConfig } from './configs/mail.config';
 import { GroupsModule } from './groups/groups.module';
 import { ProjectsModule } from './projects/projects.module';
-import { TransportsModule } from './transports/transports.module';
 import { UserModule } from './users/users.module';
+import { CargosModule } from './cargos/cargos.module';
+import { TransportsModule } from './transports/transports.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { UserModule } from './users/users.module';
     UserModule,
     ProjectsModule,
     GroupsModule,
+    CargosModule,
     TransportsModule,
   ],
 })
