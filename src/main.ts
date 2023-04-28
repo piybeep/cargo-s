@@ -46,7 +46,7 @@ async function bootstrap() {
     origin: true,
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
     credentials: true,
-   });
+  });
 
   const document = SwaggerModule.createDocument(app, config);
 
