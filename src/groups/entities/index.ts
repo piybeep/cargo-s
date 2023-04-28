@@ -68,6 +68,6 @@ export class Group {
   @JoinColumn({ name: 'projectId' })
   project: Project;
 
-  @OneToMany(()=> Cargo, (cargo: Cargo) => cargo.groups)
-  cargo: Cargo;
+  @OneToMany(()=> Cargo, (cargos: Cargo) => cargos.group)
+  cargos: Cargo[];
 }

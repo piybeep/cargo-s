@@ -12,6 +12,7 @@ import {
 import { CargoTypes, TiersEnum } from '../enums';
 import { Transport } from 'src/transports/entities';
 import { Group } from 'src/groups/entities';
+import { LoadSpace } from '../../transports/entities/loadSpace.entity';
 
 @Entity('Cargos')
 export class Cargo {
@@ -19,7 +20,7 @@ export class Cargo {
     example: '0d1d44f2-a78c-410d-8e1a-9ce44e9f9876',
     description: 'Id груза',
   })
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @ApiProperty({
@@ -38,10 +39,10 @@ export class Cargo {
 
   @ApiProperty({
     example: '0d1d44f2-a78c-410d-8e1a-9ce44e9f9876',
-    description: 'Id транспорта',
+    description: 'Id грузового пространства',
   })
   @Column({ type: 'uuid', nullable: true })
-  transportId: string;
+  loadSpaceId: string;
 
   @ApiProperty({
     example: 'FBCEB1',
@@ -132,15 +133,15 @@ export class Cargo {
 
   /*  ASSOCIATONS  */
 
-  @ManyToOne(() => Transport, (transport: Transport) => transport.cargo, {
+  @ManyToOne(() => LoadSpace, (loadSpace: LoadSpace) => loadSpace.cargos, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'transportId' })
-  transports: Transport[];
+  @JoinColumn({ name: 'loadSpaceId' })
+  loadSpace: LoadSpace;
 
-  @ManyToOne(() => Group, (group: Group) => group.cargo, {
+  @ManyToOne(() => Group, (group: Group) => group.cargos, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'groupId' })
-  groups: Group[];
+  group: Group;
 }

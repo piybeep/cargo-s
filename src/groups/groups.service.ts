@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { Like, Not, Repository } from 'typeorm';
 import { UpdateGroupDto } from './dto';
 import { Group } from './entities';
 import { ProjectsService } from '../projects/projects.service';
@@ -42,11 +42,17 @@ export class GroupsService {
     });
     return group;
   }
+
+  //ПОЛУЧЕНИЕ ОДНОЙ ГРУППЫ
+  async getOne(id: string) {
+    return await this.groupRepository.find({ where: { id } });
+  }
+
   //ПОЛУЧЕНИЕ СОРТИРОВАННОГО СПИСКА ГРУПП ОДНОГО ПРОЕКТА
   async getAllGroups(projectId: string, searchString: string) {
     //TODO: сделать поиск по названию груза
     const groups = await this.groupRepository.find({
-      where: { projectId },
+      where: { projectId, cargos: { name: Like(searchString) } },
       order: { position: 'ASC' },
     });
     return groups;

@@ -32,14 +32,18 @@ export class CargosController {
   @ApiResponse({ status: 200, type: [Cargo] })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  async getCargosByGroup(@Query('groupId', ParseUUIDPipe) groupId: string) {}
+  async getCargosByGroup(@Query('groupId', ParseUUIDPipe) groupId: string) {
+    return this.cargoService.getAllByGroup(groupId);
+  }
 
   @ApiOperation({ summary: 'Получение всех шаблонов-грузов' })
   @Get('tmp')
   @ApiResponse({ status: 200, type: [Cargo] })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  async getCargosTemplates() {}
+  async getCargosTemplates() {
+    return this.cargoService.getTemplates();
+  }
 
   @ApiOperation({ summary: 'Получение одного груза' })
   @Get(':id')
@@ -47,7 +51,9 @@ export class CargosController {
   @ApiResponse({ status: 200, type: Cargo })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  async getOne(@Param('id', ParseUUIDPipe) id: string) {}
+  async getOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.cargoService.getOne(id);
+  }
 
   @ApiOperation({ summary: 'Создание груза или его шаблона' })
   @Post()
@@ -55,7 +61,9 @@ export class CargosController {
   @ApiResponse({ status: 201, type: Cargo })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  async createCargo(@Body() data: CreateCargoDto) {}
+  async createCargo(@Body() data: CreateCargoDto) {
+    return this.cargoService.createCargo(data);
+  }
 
   @ApiOperation({ summary: 'Обновление груза' })
   @Put(':id')
@@ -67,7 +75,9 @@ export class CargosController {
   async updateCargo(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() data: UpdateCargoDto,
-  ) {}
+  ) {
+    return this.cargoService.updateCargo(id, data);
+  }
 
   @ApiOperation({ summary: 'Удаление одного груза' })
   @ApiParam({ name: 'id', description: 'Id груза' })
@@ -75,5 +85,5 @@ export class CargosController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @Delete(':id')
-  async deleteCargo(@Param('id', ParseUUIDPipe) id: string) {}
+  async deleteCargo(@Param('id', ParseUUIDPipe) id: string) {return this.cargoService.deleteCargo(id)}
 }

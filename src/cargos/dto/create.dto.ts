@@ -6,6 +6,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   IsUUID,
@@ -27,6 +28,7 @@ export class CreateCargoDto {
     example: '0d1d44f2-a78c-410d-8e1a-9ce44e9f9876',
     description: 'Id группы',
   })
+  @IsOptional()
   @IsNotEmpty()
   @IsUUID()
   groupId: string;
@@ -35,14 +37,16 @@ export class CreateCargoDto {
     example: '0d1d44f2-a78c-410d-8e1a-9ce44e9f9876',
     description: 'Id транспорта',
   })
+  @IsOptional()
   @IsNotEmpty()
   @IsUUID()
-  transportId: string;
+  loadSpaceId: string;
 
   @ApiProperty({
     example: 'FBCEB1',
     description: 'Код цвета',
   })
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
   @IsHexColor()
