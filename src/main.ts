@@ -7,33 +7,46 @@ import * as morgan from 'morgan';
 import * as compression from 'compression';
 import helmet from 'helmet';
 import { ConfigService } from '@nestjs/config';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const configService = app.get(ConfigService);
 
   const config = new DocumentBuilder()
     .setTitle('Cargo API')
     .setVersion('1.0')
     .setDescription('[Документация](https://shrt.piybeep.com/l/DERRPE)')
-    .addBearerAuth({ type: 'http' })
+    .addCookieAuth('token')
     .build();
 
   app.use(cookieParser());
   app.use(compression());
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: [`'self'`],
+          styleSrc: [`'self'`, `'unsafe-inline'`],
+          imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
+          scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+        },
+      },
+    }),
+  );
+
   app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new ValidationPipe());
   app.use(
     morgan(
-      `[date[clf]] :method :url :status :res[content-length] :response-time ms ":referrer" :remote-addr - :remote-user ":user-agent"`,
+      `[:date[clf]] :method :url :status :res[content-length] :response-time ms ":referrer" :remote-addr - :remote-user ":user-agent"`,
     ),
   );
   app.enableCors({
     origin: true,
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
     credentials: true,
-  });
+   });
 
   const document = SwaggerModule.createDocument(app, config);
 
