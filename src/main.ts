@@ -22,7 +22,6 @@ async function bootstrap() {
 
   app.use(cookieParser());
   app.use(compression());
-<<<<<<< HEAD
   app.use(
     helmet({
       contentSecurityPolicy: {
@@ -35,10 +34,6 @@ async function bootstrap() {
       },
     }),
   );
-
-=======
- // app.use(helmet());
->>>>>>> b4d7189 (server fix)
   app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new ValidationPipe());
   app.use(
