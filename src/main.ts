@@ -22,18 +22,18 @@ async function bootstrap() {
 
   app.use(cookieParser());
   app.use(compression());
-  app.use(
-    helmet({
-      contentSecurityPolicy: {
-        directives: {
-          defaultSrc: [`'self'`],
-          styleSrc: [`'self'`, `'unsafe-inline'`],
-          imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
-          scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
-        },
-      },
-    }),
-  );
+//  app.use(
+//    helmet({
+//      contentSecurityPolicy: {
+//        directives: {
+//          defaultSrc: [`'self'`],
+//          styleSrc: [`'self'`, `'unsafe-inline'`],
+//          imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
+//          scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+//        },
+//      },
+//    }),
+//  );
   app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new ValidationPipe());
   app.use(
