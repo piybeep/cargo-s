@@ -48,7 +48,7 @@ export class AuthController {
   @ApiResponse({ status: 201, type: LoginUserResponseDto })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @Post('signin')
+  @Post('sign')
   async login(
     @Res({ passthrough: true }) res: Response,
     @Body() userData: LoginUserBodyDto,
@@ -69,7 +69,7 @@ export class AuthController {
   @ApiResponse({ status: 401, description: 'UNAUTHORIZED' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @UseGuards(JwtGuard)
-  @Delete('signout')
+  @Delete('sign')
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     await this.authService.logout(req.user);
     res.clearCookie('token');
@@ -82,7 +82,7 @@ export class AuthController {
   @ApiResponse({ status: 401, description: 'UNAUTHORIZED' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @UseGuards(JwtGuard)
-  @Get('me')
+  @Get('sessions')
   async getCurrentUser(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
@@ -102,7 +102,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @Get('code')
+  @Post('recovery')
   async sendCode(@Body() payload: SendCodeDto) {
     await this.authService.sendCode(payload.email);
   }
@@ -123,7 +123,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @Put('reset/:code')
+  @Put('recovery/:code')
   async resetPassword(
     @Param('code') code: string,
     @Body() payload: ResetPasswordDto,

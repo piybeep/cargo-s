@@ -31,7 +31,7 @@ import { LoadSpace, Transport } from './entities';
 import { TransportsService } from './transports.service';
 
 @ApiTags('Транспорт')
-@Controller('transports')
+@Controller()
 export class TransportsController {
   constructor(private readonly transportsService: TransportsService) {}
 
@@ -41,7 +41,7 @@ export class TransportsController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
-  @Post()
+  @Post('loadspaces')
   async createTransport(@Body() data: CreateLoadSpaceDto) {
     return await this.transportsService.createLoadSpace(data);
   }
@@ -59,7 +59,7 @@ export class TransportsController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
-  @Get()
+  @Get('loadspaces')
   async getAllFiltered(@Query('tmp') tmp = false): Promise<LoadSpace[]> {
     return await this.transportsService.getAllFiltered(tmp);
   }
@@ -71,7 +71,7 @@ export class TransportsController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
-  @Get('loadSpace/:id')
+  @Get('loadSpaces/:id')
   async getOneLoadSpace(
     @Param('id', ParseUUIDPipe) id: string,
   ): Promise<LoadSpace> {
@@ -86,7 +86,7 @@ export class TransportsController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
-  @Put('loadSpace/:id')
+  @Put('loadSpaces/:id')
   async updateLoadSpace(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() data: UpdateLoadSpaceDto,
@@ -101,7 +101,7 @@ export class TransportsController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
-  @Delete('loadSpace/:id')
+  @Delete('loadSpaces/:id')
   async deleteLoadSpace(@Param('id', ParseUUIDPipe) id: string) {
     return this.transportsService.deleteLoadSpace(id);
   }
@@ -113,7 +113,7 @@ export class TransportsController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
-  @Get('transport/:id')
+  @Get('transports/:id')
   async getOneTransport(
     @Param('id', ParseUUIDPipe) id: string,
   ): Promise<Transport> {
@@ -128,7 +128,7 @@ export class TransportsController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
-  @Put('transport/:id')
+  @Put('transports/:id')
   async updateTransport(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() data: UpdateTransportDto,
@@ -143,7 +143,7 @@ export class TransportsController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
-  @Delete('transport/:id')
+  @Delete('transports/:id')
   async deleteTransport(@Param('id', ParseUUIDPipe) id: string) {
     return this.transportsService.deleteTransport(id);
   }

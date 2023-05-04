@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GroupsService } from 'src/groups/groups.service';
 import { TransportsService } from 'src/transports/transports.service';
@@ -35,12 +39,12 @@ export class CargoService {
     return cargo;
   }
 
-  async createCargo(data: CreateCargoDto) {
+  async createCargo(data: CreateCargoDto, groupId: string) {
     let loadSpaces, groups;
-    if (data.groupId) {
-      const group = await this.groupService.getOne(data.groupId);
+    if (groupId) {
+      const group = await this.groupService.getOne(groupId);
       if (!group || group.length === 0) {
-        throw new BadRequestException(`group ${data.groupId} not found`);
+        throw new BadRequestException(`group ${groupId} not found`);
       }
       groups = group;
     }
@@ -55,18 +59,24 @@ export class CargoService {
       }
       loadSpaces = [loadSpace];
     }
-    return await this.cargoRepository.save({ ...data, loadSpaces, groups });
+    return await this.cargoRepository.save({
+      ...data,
+      groupId,
+      loadSpaces,
+      groups,
+    });
   }
 
   async updateCargo(id: string, data: UpdateCargoDto) {
-    const cargo = await this.cargoRepository.find({ where: { id } });
-    if (!cargo || cargo.length === 0) {
+    const cargo = await this.cargoRepository.findOne({ where: { id } });
+    if (!cargo) {
       throw new BadRequestException(`Cargo ${id} not found`);
     }
     for (const key in data) {
       cargo[key] = data[key];
     }
 
+    console.log(cargo);
     await this.cargoRepository.save(cargo);
     return await this.cargoRepository.findOne({
       where: { id },
@@ -79,6 +89,9 @@ export class CargoService {
     if (!cargo) {
       throw new BadRequestException(`Cargo ${id} not found`);
     }
-    await this.cargoRepository.delete(cargo);
+    const deleteResult = await this.cargoRepository.delete(id);
+    if (deleteResult.affected === 0) {
+      throw new InternalServerErrorException(`Deleting failed`);
+    }
   }
 }

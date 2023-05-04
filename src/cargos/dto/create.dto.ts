@@ -26,15 +26,6 @@ export class CreateCargoDto {
 
   @ApiProperty({
     example: '0d1d44f2-a78c-410d-8e1a-9ce44e9f9876',
-    description: 'Id группы',
-  })
-  @IsOptional()
-  @IsNotEmpty()
-  @IsUUID()
-  groupId: string;
-
-  @ApiProperty({
-    example: '0d1d44f2-a78c-410d-8e1a-9ce44e9f9876',
     description: 'Id транспорта',
   })
   @IsOptional()
