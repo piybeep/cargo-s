@@ -4,10 +4,10 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Not, Repository } from 'typeorm';
+import { ILike, Not, Repository } from 'typeorm';
+import { ProjectsService } from '../projects/projects.service';
 import { UpdateGroupDto } from './dto';
 import { Group } from './entities';
-import { ProjectsService } from '../projects/projects.service';
 
 @Injectable()
 export class GroupsService {
@@ -49,13 +49,24 @@ export class GroupsService {
   }
 
   //ПОЛУЧЕНИЕ СОРТИРОВАННОГО СПИСКА ГРУПП ОДНОГО ПРОЕКТА
-  async getAllGroups(projectId: string, searchString: string) {
-    //TODO: сделать поиск по названию груза
+  async getAllGroups(projectId: string) {
     const groups = await this.groupRepository.find({
-      where: { projectId, cargos: { name: Like(searchString) } },
+      where: { projectId },
+      relations: { cargos: true },
       order: { position: 'ASC' },
     });
     return groups;
+  }
+  //
+  async searchGroups(projectId: string, searchString: string) {
+    return await this.groupRepository.find({
+      where: {
+        projectId,
+        cargos: { name: ILike('%' + searchString + '%') },
+      },
+      relations: { cargos: true },
+      order: { position: 'ASC' },
+    });
   }
 
   //ОБНОВЛЕНИЕ ИНФОРМАЦИИ ГРУППЫ
@@ -96,6 +107,8 @@ export class GroupsService {
     //TODO: сделать каскадное удаление
     const group = await this.groupRepository.findOneBy({ id: groupId });
     if (!group) throw new BadRequestException('No such group');
-    return await this.groupRepository.delete({ id: groupId });
+    const deleteResult = await this.groupRepository.delete({ id: groupId });
+    if (deleteResult.affected !== 0) return;
+    throw new InternalServerErrorException('deleting failed');
   }
 }

@@ -68,7 +68,7 @@ export class ProjectsController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   @UseGuards(JwtGuard)
-  @Get('all')
+  @Get()
   async getProjects(
     @Query() data: FindAllProjectsDto,
     @Req() req: Request,
