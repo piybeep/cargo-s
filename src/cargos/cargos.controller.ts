@@ -3,14 +3,12 @@ import {
   Controller,
   Delete,
   Get,
-  Optional,
   Param,
-  ParseBoolPipe,
   ParseUUIDPipe,
   Post,
   Put,
   Query,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -21,10 +19,10 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { JwtGuard } from 'src/auth/guards/token.guard';
 import { CargoService } from './cargos.service';
 import { CreateCargoDto, UpdateCargoDto } from './dto';
 import { Cargo } from './entities';
-import { JwtGuard } from 'src/auth/guards/token.guard';
 
 @ApiTags('Грузы')
 @ApiCookieAuth('token')
