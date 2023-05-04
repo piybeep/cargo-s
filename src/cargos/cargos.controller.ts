@@ -8,7 +8,7 @@ import {
   Post,
   Put,
   Query,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBody,
