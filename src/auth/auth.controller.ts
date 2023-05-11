@@ -59,6 +59,11 @@ export class AuthController {
       token,
       getCookieConfig(userData.rememberMe, this.configService),
     );
+
+    //на проде выпилить
+    res.send({token, user})
+
+    
     return user;
   }
 
@@ -93,6 +98,9 @@ export class AuthController {
       token,
       getCookieConfig(session?.rememberMe ?? false, this.configService),
     );
+
+    //на проде выпилить
+    res.send({token})
   }
 
   @ApiOperation({
