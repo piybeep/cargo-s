@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { LessThan, Repository } from 'typeorm';
 import { LoginUserBodyDto, ResetPasswordDto } from './dto';
-import { Auth } from './entity/auth.entity';
+import { Auth } from './entities';
 import { UserService } from '../users/users.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
