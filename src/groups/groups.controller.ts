@@ -40,7 +40,7 @@ export class GroupsController {
   @ApiResponse({ status: 201, type: Group })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Post()
   async createGroup(@Param('projectId', ParseUUIDPipe) projectId: string) {
     return await this.groupsService.createGroup(projectId);
@@ -63,7 +63,7 @@ export class GroupsController {
   @ApiResponse({ status: 201, type: [Group] })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Get()
   async searchGroups(
     @Param('projectId', ParseUUIDPipe) projectId: string,
@@ -88,7 +88,7 @@ export class GroupsController {
   // @ApiResponse({ status: 201, type: [Group] })
   // @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   // @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  // @UseGuards(JwtGuard)
+  // //@UseGuards(JwtGuard)
   // @Get()
   // async getAllGroups(@Param('projectId', ParseUUIDPipe) projectId: string) {
   //   return await this.groupsService.getAllGroups(projectId);
@@ -114,7 +114,7 @@ export class GroupsController {
   @ApiResponse({ status: 200, type: Group })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Put(':id')
   async updateGroup(
     @Param('projectId', ParseUUIDPipe) projectId: string,
@@ -142,7 +142,7 @@ export class GroupsController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Delete(':id')
   async deleteGroup(@Param('id', ParseUUIDPipe) id: string) {
     return await this.groupsService.deleteGroup(id);

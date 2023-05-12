@@ -40,7 +40,7 @@ export class TransportsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Post('loadspaces')
   async createTransport(@Body() data: CreateLoadSpaceDto) {
     return await this.transportsService.createLoadSpace(data);
@@ -58,7 +58,7 @@ export class TransportsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Get('loadspaces')
   async getAllFiltered(@Query('tmp') tmp = false): Promise<LoadSpace[]> {
     return await this.transportsService.getAllFiltered(tmp);
@@ -70,7 +70,7 @@ export class TransportsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Get('loadSpaces/:id')
   async getOneLoadSpace(
     @Param('id', ParseUUIDPipe) id: string,
@@ -85,7 +85,7 @@ export class TransportsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Put('loadSpaces/:id')
   async updateLoadSpace(
     @Param('id', ParseUUIDPipe) id: string,
@@ -100,7 +100,7 @@ export class TransportsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Delete('loadSpaces/:id')
   async deleteLoadSpace(@Param('id', ParseUUIDPipe) id: string) {
     return this.transportsService.deleteLoadSpace(id);
@@ -112,7 +112,7 @@ export class TransportsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Get('transports/:id')
   async getOneTransport(
     @Param('id', ParseUUIDPipe) id: string,
@@ -127,7 +127,7 @@ export class TransportsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Put('transports/:id')
   async updateTransport(
     @Param('id', ParseUUIDPipe) id: string,
@@ -142,7 +142,7 @@ export class TransportsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   @Delete('transports/:id')
   async deleteTransport(@Param('id', ParseUUIDPipe) id: string) {
     return this.transportsService.deleteTransport(id);

@@ -26,7 +26,7 @@ import { Cargo } from './entities';
 
 @ApiTags('Грузы')
 @ApiCookieAuth('token')
-@UseGuards(JwtGuard)
+//@UseGuards(JwtGuard)
 @Controller('/groups/:groupId/cargos')
 export class CargosController {
   constructor(private readonly cargoService: CargoService) {}
@@ -81,7 +81,7 @@ export class CargosController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
+  //@UseGuards(JwtGuard)
   async createCargo(
     @Param('groupId', ParseUUIDPipe) groupId: string,
     @Body() data: CreateCargoDto,
