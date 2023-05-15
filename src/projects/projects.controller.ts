@@ -63,6 +63,9 @@ export class ProjectsController {
     description: 'Направление сортировки',
     required: false,
   })
+  //TODO: ВЫПИЛИТЬ НА ПРОДЕ
+  @ApiQuery({ name: 'userId', description: 'Id пользователя' })
+
   @ApiResponse({ status: 200, type: GetAllProjectsResponseDto })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
@@ -71,9 +74,9 @@ export class ProjectsController {
   @Get()
   async getProjects(
     @Query() data: FindAllProjectsDto,
-    @Req() req: Request,
+    // @Req() req: Request,
   ): Promise<GetAllProjectsResponseDto> {
-    return await this.projectsService.getProjects(data, req.user);
+    return await this.projectsService.getProjects(data /* req.user */);
   }
 
   @ApiOperation({ summary: 'Создание проекта' })
@@ -88,7 +91,7 @@ export class ProjectsController {
     @Body() data: CreateProjectDto,
     @Req() req: Request,
   ): Promise<Project> {
-    return await this.projectsService.createProject(data, req.user);
+    return await this.projectsService.createProject(data /* , req.user */);
   }
 
   @ApiOperation({ summary: 'Обновление имени проекта' })

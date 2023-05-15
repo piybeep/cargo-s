@@ -27,10 +27,11 @@ export class ProjectsService {
 
   async getProjects(
     data: FindAllProjectsDto,
-    user: any,
+    /* user: any, */
   ): Promise<GetAllProjectsResponseDto> {
-    const userId = user.sub;
-
+    // if(user.sub)
+    // const userId = user.sub;
+    const { userId } = data;
     if (!data.searchString) data.searchString = '';
     if (!data.sortDirection) data.sortDirection = SortDirectionEnum.ASC;
     if (!data.sortField) data.sortField = SortFieldsEnum.DateUpdate;
@@ -47,8 +48,11 @@ export class ProjectsService {
     return { data: projects[0], count: projects[1] };
   }
 
-  async createProject(data: CreateProjectDto, user): Promise<Project> {
-    const _user = await this.userService.findOne({ id: user.sub });
+  async createProject(data: CreateProjectDto /* , user */): Promise<Project> {
+    const _user = await this.userService.findOne({
+      id: data.userId,
+      /* user.sub */
+    });
     if (!_user) throw new UnauthorizedException();
     const isProjectExist = await this.projectRepository.findBy({
       name: data.name,

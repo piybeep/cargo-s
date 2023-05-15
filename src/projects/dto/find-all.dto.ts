@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiOperation, ApiProperty } from '@nestjs/swagger';
 import {
   IsEnum,
   IsInt,
@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  IsUUID,
 } from 'class-validator';
 import { SortDirectionEnum, SortFieldsEnum } from '../enums';
 import { Type } from 'class-transformer';
@@ -68,4 +69,12 @@ export class FindAllProjectsDto {
   @IsNotEmpty()
   @IsEnum(SortDirectionEnum)
   sortDirection: SortDirectionEnum;
+
+  @ApiProperty({
+    example: 'ada8c2c9-533d-4ed1-ba84-53282ad8cfef',
+    description: 'Id пользователя'
+  })
+  @IsUUID()
+  @IsNotEmpty()
+  userId: string
 }
