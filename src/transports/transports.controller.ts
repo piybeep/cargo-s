@@ -54,14 +54,24 @@ export class TransportsController {
     required: false,
     description: 'получение шаблонов грузовых пространств',
   })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'номер страницы'
+  })
+  @ApiQuery({
+    name: 'size',
+    required: false,
+    description: 'размер страницы'
+  })
   @ApiResponse({ status: 200, type: [LoadSpace] })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
   //@UseGuards(JwtGuard)
   @Get('loadspaces')
-  async getAllFiltered(@Query('tmp') tmp = false): Promise<LoadSpace[]> {
-    return await this.transportsService.getAllFiltered(tmp);
+  async getAllFiltered(@Query('page') page: number = 0, @Query('size') size: number=10, @Query('tmp') tmp = false): Promise<LoadSpace[]> {
+    return await this.transportsService.getAllFiltered({page, size, tmp });
   }
 
   @ApiOperation({ summary: 'Получение грузового пространства по id' })

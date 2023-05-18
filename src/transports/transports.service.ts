@@ -50,10 +50,12 @@ export class TransportsService {
   }
 
   //ПОЛУЧЕНИЕ ВСЕХ ГРУЗОВЫХ ПРОСТРАНСТВ
-  async getAllFiltered(tmp = false): Promise<LoadSpace[]> {
+  async getAllFiltered(page: number, size: number, tmp = false): Promise<LoadSpace[]> {
     return await this.loadSpaceRepository.find({
       where: { isTemplate: tmp },
       // relations: { transports: false },
+      take: size,
+      skip: size * page
     });
   }
 
