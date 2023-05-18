@@ -23,11 +23,10 @@ export class Project {
 
   @ApiProperty({
     example: 'Dubai Express',
-    description: 'Уникальное наименование проекта',
+    description: 'Наименование проекта',
   })
   @Column({
     type: 'text',
-    unique: true,
   })
   name: string;
 
