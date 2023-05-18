@@ -54,11 +54,6 @@ export class ProjectsService {
       /* user.sub */
     });
     if (!_user) throw new UnauthorizedException();
-    const isProjectExist = await this.projectRepository.findBy({
-      name: data.name,
-    });
-    if (isProjectExist.length > 0)
-      throw new BadRequestException(`Проект ${data.name} уже существует`);
     const project: Project = await this.projectRepository.save({
       name: data.name,
       user: _user,
@@ -73,12 +68,6 @@ export class ProjectsService {
     if (project.length == 0) {
       throw new BadRequestException(`Проект ${id} не найден`);
     }
-    const isProjectExist = await this.projectRepository.findOneBy({
-      name: data.name,
-    });
-    if (isProjectExist && isProjectExist.id !== id)
-      throw new BadRequestException(`Проект ${data.name} уже существует`);
-
     const { affected } = await this.projectRepository.update(
       { id },
       { name: data.name },
