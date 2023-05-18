@@ -28,4 +28,10 @@ export class GetAllProjectsResponseDto {
     description: 'Количество всех найденых объектов',
   })
   count: number;
+
+  @ApiProperty({
+    exmaple: 2,
+    description: 'страница выдачи'
+  })
+  page: number;
 }

@@ -45,7 +45,7 @@ export class ProjectsService {
         skip: data.page * data.size,
         take: data.size,
       });
-    return { data: projects[0], count: projects[1] };
+    return { data: projects[0], count: projects[1], page: data.page};
   }
 
   async createProject(data: CreateProjectDto /* , user */): Promise<Project> {
