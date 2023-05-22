@@ -65,6 +65,7 @@ export class CargoService {
       loadSpaces,
       groups,
     });
+    
   }
 
   async updateCargo(id: string, data: UpdateCargoDto) {

@@ -30,7 +30,7 @@ export class GetAllProjectsResponseDto {
   count: number;
 
   @ApiProperty({
-    exmaple: 2,
+    example: 2,
     description: 'страница выдачи'
   })
   page: number;
