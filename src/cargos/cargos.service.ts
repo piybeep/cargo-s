@@ -20,6 +20,8 @@ export class CargoService {
   ) {}
 
   async getAllByGroup(groupId: string) {
+    console.log(groupId);
+    console.log('all')
     const cargos = await this.cargoRepository.find({
       where: { groupId, isTemplate: false },
     });
@@ -27,6 +29,7 @@ export class CargoService {
   }
 
   async getTemplates() {
+    console.log('templates')
     return await this.cargoRepository.find({ where: { isTemplate: true } });
   }
 
