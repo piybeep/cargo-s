@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import {
   CreateLoadSpaceDto,
   CreateTransportDto,
+  GetAllFilteredPaginationResponseDto,
   UpdateLoadSpaceDto,
   UpdateTransportDto,
 } from './dto';
@@ -50,13 +51,20 @@ export class TransportsService {
   }
 
   //ПОЛУЧЕНИЕ ВСЕХ ГРУЗОВЫХ ПРОСТРАНСТВ
-  async getAllFiltered(page: number, size: number, tmp = false): Promise<LoadSpace[]> {
-    return await this.loadSpaceRepository.find({
-      where: { isTemplate: tmp },
-      // relations: { transports: false },
-      take: size,
-      skip: size * page
-    });
+  async getAllFiltered(
+    page: number,
+    size: number,
+    tmp = false,
+  ): Promise<GetAllFilteredPaginationResponseDto> {
+    return {
+      data: await this.loadSpaceRepository.find({
+        where: { isTemplate: tmp },
+        // relations: { transports: false },
+        take: size,
+        skip: size * page,
+      }),
+      page,
+    };
   }
 
   //ПОЛУЧЕНИЕ ГРУЗОВОГО ПРОСТРАНСТВА ПО ID
