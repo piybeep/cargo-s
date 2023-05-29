@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
   ParseUUIDPipe,
   Post,
   Put,
@@ -31,7 +32,7 @@ import { Cargo } from './entities';
 export class CargosController {
   constructor(private readonly cargoService: CargoService) {}
 
-  @ApiOperation({ summary: 'Получение всех грузов одной группы без шаблонов' })
+  @ApiOperation({ summary: 'Получение всех грузов одной группы' })
   @Get()
   @ApiParam({
     name: 'groupId',
@@ -48,9 +49,9 @@ export class CargosController {
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   async getCargosByGroup(
     @Param('groupId', ParseUUIDPipe) groupId: string,
-    @Query('templates') templates: boolean,
+    @Query('templates', ParseBoolPipe) templates: boolean,
   ) {
-    if (!!templates) return this.cargoService.getTemplates();
+    if (templates) return this.cargoService.getTemplates();
     else return this.cargoService.getAllByGroup(groupId);
   }
 

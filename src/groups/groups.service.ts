@@ -18,6 +18,8 @@ export class GroupsService {
   //СОЗДАНИЕ ГРУППЫ ПРОЕКТА
   async createGroup(data: string) {
     const project = await this.projectsService.getProject(data);
+    console.log(project, data);
+    
     if (!project) {
       throw new BadRequestException(`Project ${data} not found`);
     }

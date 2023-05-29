@@ -53,7 +53,7 @@ export class ProjectsService {
       id: data.userId,
       /* user.sub */
     });
-    if (!_user) throw new UnauthorizedException();
+    if (!_user) throw new UnauthorizedException('no such user');
     const project: Project = await this.projectRepository.save({
       name: data.name,
       user: _user,
