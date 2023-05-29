@@ -59,12 +59,15 @@ export class CargoService {
       }
       loadSpaces = [loadSpace];
     }
-    return await this.cargoRepository.save({
+    const res = await this.cargoRepository.save({
       ...data,
       groupId,
       loadSpaces,
       groups,
     });
+
+    console.log(res);
+    return await this.cargoRepository.findOneBy(res.id);
   }
 
   async updateCargo(id: string, data: UpdateCargoDto) {
