@@ -28,7 +28,7 @@ export class LoadSpace {
     example: true,
     description: 'Шаблон или нет',
   })
-  @Column({ type: 'boolean' })
+  @Column({ type: 'boolean', default: false })
   isTemplate: boolean;
 
   @ApiProperty({ enum: WeightUnits })

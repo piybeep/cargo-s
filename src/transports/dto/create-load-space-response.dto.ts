@@ -40,7 +40,8 @@ export class CreateLoadSpaceResponseDto {
   weight: number;
 
   @ApiProperty({
-    type: [CreateTransportResponseDto],
+    type: CreateTransportResponseDto,
+    isArray: true,
     description:
       'Массив объектов транспорта (если 2 объекта и поля length и length1 одного из них равны null,то это полуприцеп, иначе тягач) ',
   })

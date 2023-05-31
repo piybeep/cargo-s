@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -22,6 +23,11 @@ export class CreateLoadSpaceDto {
   @ApiProperty({ enum: LoadSpaceTypes })
   @IsEnum(LoadSpaceTypes)
   type: LoadSpaceTypes;
+
+  @ApiProperty({ example: true, description: 'Шаблон или нет' })
+  @IsOptional()
+  @IsBoolean()
+  isTemplate: boolean;
 
   @ApiProperty({ enum: SizeUnits })
   @IsEnum(SizeUnits)

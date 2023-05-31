@@ -27,6 +27,7 @@ export class TransportsService {
   //СОЗДАНИЕ ГРУЗОВОГО ПРОСТРАНСТВА С ТРАНСПОРТОМ
   async createLoadSpace(data: CreateLoadSpaceDto) {
     const loadSpace = await this.loadSpaceRepository.save(data);
+    console.log(loadSpace);
     if (data.type === LoadSpaceTypes.Truck) {
       data.transports.forEach(async (el) => {
         el.loadSpaceId = loadSpace.id;
