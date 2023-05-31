@@ -122,6 +122,13 @@ export class TransportsService {
 
   //УДАЛЕНИЕ ГРУЗОВОГО ПРОСТРАНСТВА
   async deleteLoadSpace(id: string) {
+    const loadSpace = await this.loadSpaceRepository.findOne({
+      where: { id },
+      relations: { transports: true },
+    });
+    loadSpace.transports.forEach((el) => {
+      this.transportRepository.delete({ id: el.id });
+    });
     return await this.loadSpaceRepository.delete({ id });
   }
   //УДАЛЕНИЕ ТРАНПОРТА
