@@ -112,6 +112,8 @@ export class Transport {
 
   /*  ASSOCIATONS  */
 
-  @ManyToOne(() => LoadSpace, (loadSpace: LoadSpace) => loadSpace.transports)
+  @ManyToOne(() => LoadSpace, (loadSpace: LoadSpace) => loadSpace.transports, {
+    cascade: true,
+  })
   loadSpace: LoadSpace;
 }
