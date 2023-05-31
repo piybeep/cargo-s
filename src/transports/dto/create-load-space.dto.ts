@@ -58,6 +58,13 @@ export class CreateLoadSpaceDto {
   weight: number;
 
   @ApiProperty({
+    example: true,
+    description: 'Автоматическое распределение нагрузки',
+  })
+  @IsBoolean()
+  autoDistribution: boolean;
+  
+  @ApiProperty({
     type: [CreateTransportDto],
     description:
       'Массив объектов транспорта (если тип ТЯГАЧ С ПОЛУПРИЦЕПОМ в массиве должно быть 2 элемента, иначе один) ',

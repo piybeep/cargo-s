@@ -82,7 +82,6 @@ export class CargoService {
       cargo[key] = data[key];
     }
 
-    console.log(cargo);
     await this.cargoRepository.save(cargo);
     return await this.cargoRepository.findOne({
       where: { id },
