@@ -57,7 +57,9 @@ export class LoadSpace {
 
   /*  ASSOCIATONS  */
 
-  @OneToMany(() => Transport, (transport: Transport) => transport.loadSpace, {cascade: true})
+  @OneToMany(() => Transport, (transport: Transport) => transport.loadSpace, {
+    onDelete: 'CASCADE',
+  })
   transports: Transport[];
 
   @OneToMany(() => Cargo, (cargo: Cargo) => cargo.loadSpace)
