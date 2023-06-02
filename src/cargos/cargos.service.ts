@@ -21,7 +21,7 @@ export class CargoService {
 
   async getAllByGroup(groupId: string) {
     console.log(groupId);
-    console.log('all')
+    console.log('all');
     const cargos = await this.cargoRepository.find({
       where: { groupId, isTemplate: false },
     });
@@ -29,7 +29,7 @@ export class CargoService {
   }
 
   async getTemplates() {
-    console.log('templates')
+    console.log('templates');
     return await this.cargoRepository.find({ where: { isTemplate: true } });
   }
 
@@ -51,7 +51,7 @@ export class CargoService {
       }
       groups = group;
     }
-    if (data.loadSpaceId) {
+    if (data.loadSpaceId && data.loadSpaceId !== null) {
       const loadSpace = await this.transportService.getOneLoadSpace(
         data.loadSpaceId,
       );
@@ -62,6 +62,7 @@ export class CargoService {
       }
       loadSpaces = [loadSpace];
     }
+
     const res = await this.cargoRepository.save({
       ...data,
       groupId,
@@ -69,8 +70,7 @@ export class CargoService {
       groups,
     });
 
-    console.log(res);
-    return await this.cargoRepository.findOneBy(res.id);
+    return await this.cargoRepository.findOneBy({id: res.id});
   }
 
   async updateCargo(id: string, data: UpdateCargoDto) {
