@@ -40,7 +40,7 @@ import { UserModule } from './users/users.module';
         database: config.get<string>('TYPEORM_DATABASE'),
         port: config.get<number>('TYPEORM_PORT'),
         entities: [__dirname + 'dist/**/*.entity{.ts,.js}'],
-        synchronize: false,
+        synchronize: true,
         autoLoadEntities: true,
         logging: true,
       }),

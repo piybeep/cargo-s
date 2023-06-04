@@ -27,6 +27,7 @@ export class Group {
   })
   @Column({
     type: 'text',
+    unique: false
   })
   name: string;
 

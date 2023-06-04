@@ -12,7 +12,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('projects')
+@Entity('Projects')
 export class Project {
   @ApiProperty({
     example: '0d1d44f2-a78c-410d-8e1a-9ce44e9f9876',
