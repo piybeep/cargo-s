@@ -46,7 +46,7 @@ export class CargoService {
     let loadSpaces, groups;
     if (groupId) {
       const group = await this.groupService.getOne(groupId);
-      if (!group || group.length === 0) {
+      if (!group) {
         throw new BadRequestException(`group ${groupId} not found`);
       }
       groups = group;

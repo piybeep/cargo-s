@@ -95,6 +95,27 @@ export class GroupsController {
   // }
 
   @ApiCookieAuth('token')
+  @ApiOperation({ summary: 'Получение группы по id' })
+  @ApiParam({
+    name: 'id',
+    description: 'Id группы',
+    example: 'ada8c2c9-533d-4ed1-ba84-53282ad8cfef',
+  })
+  @ApiParam({
+    name: 'projectId',
+    example: 'ada8c2c9-533d-4ed1-ba84-53282ad8cfef',
+    description: 'Id проекта',
+  })
+  @ApiResponse({ status: 200, type: Group })
+  @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
+  @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  //@UseGuards(JwtGuard)
+  @Get(':id')
+  async getGroup(@Param('id', ParseUUIDPipe) id: string): Promise<Group> {
+    return await this.groupsService.getOne(id);
+  }
+
+  @ApiCookieAuth('token')
   @ApiOperation({
     summary: 'Обновление имени, видимости и позиции группы',
   })
