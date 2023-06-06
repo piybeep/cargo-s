@@ -31,7 +31,7 @@ export class GetAllProjectsResponseDto {
 
   @ApiProperty({
     example: 2,
-    description: 'страница выдачи'
+    description: 'страница выдачи',
   })
   page: number;
 }

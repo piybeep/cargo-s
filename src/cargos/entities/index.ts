@@ -12,6 +12,7 @@ import {
 import { CargoTypes, TiersEnum } from '../enums';
 import { Group } from 'src/groups/entities';
 import { LoadSpace } from '../../transports/entities/loadSpace.entity';
+import { ColumnNumericTransformer } from 'src/utils';
 
 @Entity('Cargos')
 export class Cargo {
@@ -70,28 +71,48 @@ export class Cargo {
     examples: [200, 200.1],
     description: 'Длина груза',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   length: number;
 
   @ApiProperty({
     examples: [200, 200.1],
     description: 'Ширина груза',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   width: number;
 
   @ApiProperty({
     examples: [200, 200.1],
     description: 'Высота груза',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   height: number;
 
   @ApiProperty({
     example: 3040,
     description: 'Масса груза',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   weight: number;
 
   @ApiProperty({ enum: TiersEnum })
@@ -103,7 +124,12 @@ export class Cargo {
   type: CargoTypes;
 
   @ApiProperty({ example: 30, description: 'Нагрузка груза' })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   load: number;
 
   @ApiProperty({

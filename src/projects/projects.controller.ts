@@ -65,7 +65,6 @@ export class ProjectsController {
   })
   //TODO: ВЫПИЛИТЬ НА ПРОДЕ
   @ApiQuery({ name: 'userId', description: 'Id пользователя' })
-
   @ApiResponse({ status: 200, type: GetAllProjectsResponseDto })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })

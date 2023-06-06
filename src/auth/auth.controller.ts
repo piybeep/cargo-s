@@ -61,9 +61,8 @@ export class AuthController {
     );
 
     //на проде выпилить
-    res.send({token, user})
+    res.send({ token, user });
 
-    
     return user;
   }
 
@@ -100,7 +99,7 @@ export class AuthController {
     );
 
     //на проде выпилить
-    res.send({token})
+    res.send({ token });
   }
 
   @ApiOperation({

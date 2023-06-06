@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Cargo } from 'src/cargos/entities';
+import { ColumnNumericTransformer } from 'src/utils';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { LoadSpaceTypes, SizeUnits, WeightUnits } from '../enums';
 import { Transport } from './transport.entity';
-import { Cargo } from 'src/cargos/entities';
 
 @Entity('LoadSpaces')
 export class LoadSpace {
@@ -40,26 +41,46 @@ export class LoadSpace {
   sizeUnit: SizeUnits;
 
   @ApiProperty({ examples: [200, 200.1], description: 'Длина' })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   length: number;
 
   @ApiProperty({ examples: [200, 200.1], description: 'Ширина' })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   width: number;
 
   @ApiProperty({ examples: [200, 200.1], description: 'Высота' })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   height: number;
 
   @ApiProperty({ examples: [200, 200.1], description: 'Тоннаж' })
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   weight: number;
 
   /*  ASSOCIATONS  */
 
   @OneToMany(() => Transport, (transport: Transport) => transport.loadSpace, {
     onDelete: 'CASCADE',
-    cascade: true
+    cascade: true,
   })
   transports: Transport[];
 

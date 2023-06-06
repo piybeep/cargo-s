@@ -58,12 +58,12 @@ export class TransportsController {
   @ApiQuery({
     name: 'page',
     required: false,
-    description: 'номер страницы'
+    description: 'номер страницы',
   })
   @ApiQuery({
     name: 'size',
     required: false,
-    description: 'размер страницы'
+    description: 'размер страницы',
   })
   @ApiResponse({ status: 200, type: [LoadSpace] })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
@@ -71,7 +71,11 @@ export class TransportsController {
   @ApiCookieAuth('token')
   //@UseGuards(JwtGuard)
   @Get('loadspaces')
-  async getAllFiltered(@Query('page') page: number = 0, @Query('size') size: number=10, @Query('tmp') tmp = false): Promise<GetAllFilteredPaginationResponseDto> {
+  async getAllFiltered(
+    @Query('page') page: number = 0,
+    @Query('size') size: number = 10,
+    @Query('tmp') tmp = false,
+  ): Promise<GetAllFilteredPaginationResponseDto> {
     return await this.transportsService.getAllFiltered(page, size, tmp);
   }
 

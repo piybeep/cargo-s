@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { SizeUnits, TransportTypes, WeightUnits } from '../enums';
 import { LoadSpace } from './loadSpace.entity';
+import { ColumnNumericTransformer } from 'src/utils';
 
 @Entity('Transports')
 export class Transport {
@@ -37,7 +38,12 @@ export class Transport {
     example: 3040,
     description: 'Собственная масса без груза',
   })
-  @Column({ type: 'decimal' })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   weight: number;
 
   @ApiProperty({
@@ -58,56 +64,104 @@ export class Transport {
     examples: [200, 200.1],
     description: 'Длина между осями',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: true,
+    transformer: new ColumnNumericTransformer(),
+  })
   length: number;
 
   @ApiProperty({
     examples: [200, 200.1],
     description: 'Длина от оси А1 до сцеп.устройства',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: true,
+    transformer: new ColumnNumericTransformer(),
+  })
   length1: number;
 
   @ApiProperty({
     examples: [200, 200.1],
     description: 'Длина от центра тележки A2 до сцеп.устройства',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: true,
+    transformer: new ColumnNumericTransformer(),
+  })
   length2: number;
 
   @ApiProperty({
     examples: [200, 200.1],
     description: 'Длина от центра тележки A2 до стенки',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: true,
+    transformer: new ColumnNumericTransformer(),
+  })
   length3: number;
 
   @ApiProperty({
     examples: [200, 200.1],
     description: 'Нагрузка на ось A1 без груза',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: true,
+    transformer: new ColumnNumericTransformer(),
+  })
   axle1Min: number;
 
   @ApiProperty({
     examples: [200, 200.1],
     description: 'Максимальная нагрузка на ось A1',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: true,
+    transformer: new ColumnNumericTransformer(),
+  })
   axle1Max: number;
 
   @ApiProperty({
     examples: [200, 200.1],
     description: 'Нагрузка на осевую тележку A2 без груза',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: true,
+    transformer: new ColumnNumericTransformer(),
+  })
   axle2Min: number;
 
   @ApiProperty({
     examples: [200, 200.1],
     description: 'Максимальная нагрузка на осевую тележку A2',
   })
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    nullable: true,
+    transformer: new ColumnNumericTransformer(),
+  })
   axle2Max: number;
 
   /*  ASSOCIATONS  */

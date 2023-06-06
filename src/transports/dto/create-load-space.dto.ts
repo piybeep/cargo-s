@@ -63,7 +63,7 @@ export class CreateLoadSpaceDto {
   })
   @IsBoolean()
   autoDistribution: boolean;
-  
+
   @ApiProperty({
     type: [CreateTransportDto],
     description:

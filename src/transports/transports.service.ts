@@ -27,8 +27,7 @@ export class TransportsService {
   //СОЗДАНИЕ ГРУЗОВОГО ПРОСТРАНСТВА С ТРАНСПОРТОМ
   async createLoadSpace(data: CreateLoadSpaceDto) {
     const { autoDistribution, ..._data } = data;
-    // console.log(_data)
-    
+
     if (data.type === LoadSpaceTypes.Truck) {
       if (!autoDistribution) {
         data.transports.forEach(async (el) => {
@@ -37,13 +36,15 @@ export class TransportsService {
           el.sizeUnit = _data.sizeUnit;
         });
         // await this.createTransport(data.transports);
-      } else delete _data.transports
+      } else delete _data.transports;
     }
     const loadSpace = await this.loadSpaceRepository.save(_data);
-    return await this.loadSpaceRepository.findOne({
+    const aa = await this.loadSpaceRepository.findOne({
       where: { id: loadSpace.id },
       relations: ['transports'],
     });
+    console.log(aa);
+    return aa;
   }
 
   //СОЗДАНИЕ ТРАНСПОРТА

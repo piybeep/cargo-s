@@ -47,7 +47,7 @@ export class GroupsService {
 
   //ПОЛУЧЕНИЕ ОДНОЙ ГРУППЫ
   async getOne(id: string) {
-    return await this.groupRepository.findOneBy({ id   });
+    return await this.groupRepository.findOneBy({ id });
   }
 
   //ПОЛУЧЕНИЕ СОРТИРОВАННОГО СПИСКА ГРУПП ОДНОГО ПРОЕКТА
@@ -59,7 +59,7 @@ export class GroupsService {
     });
     return groups;
   }
-  //ПОИСК ГРУПП 
+  //ПОИСК ГРУПП
   async searchGroups(projectId: string, searchString: string) {
     return await this.groupRepository.find({
       where: {

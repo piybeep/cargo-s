@@ -70,7 +70,7 @@ export class CargoService {
       groups,
     });
 
-    return await this.cargoRepository.findOneBy({id: res.id});
+    return await this.cargoRepository.findOneBy({ id: res.id });
   }
 
   async updateCargo(id: string, data: UpdateCargoDto) {

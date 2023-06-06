@@ -12,9 +12,9 @@ export class CreateProjectDto {
 
   @ApiProperty({
     example: 'ada8c2c9-533d-4ed1-ba84-53282ad8cfef',
-    description: 'Id пользователя'
+    description: 'Id пользователя',
   })
   @IsUUID()
   @IsNotEmpty()
-  userId: string
+  userId: string;
 }
