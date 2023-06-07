@@ -96,9 +96,13 @@ export class TransportsService {
     for (const key in data) {
       loadSpace[key] = data[key];
     }
-
-    if (loadSpace.type !== LoadSpaceTypes.Truck) {
+    
+    if (loadSpace.type !== LoadSpaceTypes.Truck || data.autoDistribution) {
       await this.transportRepository.delete({ loadSpaceId: id });
+    }
+    if(data.type === LoadSpaceTypes.Truck) {
+      loadSpace.weightUnit=data.weightUnit,
+      loadSpace.sizeUnit=data.sizeUnit
     }
 
     await this.loadSpaceRepository.save(loadSpace);

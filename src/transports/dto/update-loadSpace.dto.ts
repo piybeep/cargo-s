@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -83,4 +84,11 @@ export class UpdateLoadSpaceDto {
   @IsNumber()
   @IsPositive()
   weight: number;
+  
+  @ApiProperty({
+    example: true,
+    description: 'Автоматическое распределение нагрузки',
+  })
+  @IsBoolean()
+  autoDistribution: boolean;
 }
