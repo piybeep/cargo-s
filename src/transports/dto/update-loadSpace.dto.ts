@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsArray,
   IsBoolean,
   IsEnum,
   IsNotEmpty,
@@ -8,6 +9,7 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
+import { Transport } from '../entities';
 import { LoadSpaceTypes, SizeUnits, WeightUnits } from '../enums';
 
 export class UpdateLoadSpaceDto {
@@ -84,11 +86,19 @@ export class UpdateLoadSpaceDto {
   @IsNumber()
   @IsPositive()
   weight: number;
-  
+
   @ApiProperty({
     example: true,
     description: 'Автоматическое распределение нагрузки',
   })
   @IsBoolean()
   autoDistribution: boolean;
+
+  @ApiProperty({
+    type: Transport,
+    required: false,
+  })
+  @IsOptional()
+  @IsArray()
+  transports: Transport[];
 }

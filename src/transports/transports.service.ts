@@ -13,7 +13,7 @@ import {
   UpdateTransportDto,
 } from './dto';
 import { LoadSpace, Transport } from './entities';
-import { LoadSpaceTypes } from './enums';
+import { LoadSpaceTypes, SizeUnits, WeightUnits } from './enums';
 
 @Injectable()
 export class TransportsService {
@@ -96,13 +96,21 @@ export class TransportsService {
     for (const key in data) {
       loadSpace[key] = data[key];
     }
-    
-    if (loadSpace.type !== LoadSpaceTypes.Truck || data.autoDistribution) {
-      await this.transportRepository.delete({ loadSpaceId: id });
-    }
-    if(data.type === LoadSpaceTypes.Truck) {
-      loadSpace.weightUnit=data.weightUnit,
-      loadSpace.sizeUnit=data.sizeUnit
+    if (data.type === LoadSpaceTypes.Truck) {
+      if (!data.autoDistribution) {
+        if (!data.transports) {
+          throw new BadRequestException('transports is required');
+        }
+        data.transports.forEach((el) => {
+          el.weightUnit = data.weightUnit || WeightUnits.Kg;
+          el.sizeUnit = data.sizeUnit || SizeUnits.M;
+        });
+        loadSpace.transports = data.transports;
+      } else {
+        loadSpace.transports = [];
+      }
+    } else if (data.type === loadSpace.type) {
+      loadSpace.transports = [];
     }
 
     await this.loadSpaceRepository.save(loadSpace);
