@@ -44,14 +44,26 @@ export class CargosController {
     example: true,
     description: 'получение шаблонов грузов',
   })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'номер страницы',
+  })
+  @ApiQuery({
+    name: 'size',
+    required: false,
+    description: 'размер страницы',
+  })
   @ApiResponse({ status: 200, type: [Cargo] })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   async getCargosByGroup(
     @Param('groupId', ParseUUIDPipe) groupId: string,
     @Query('templates', ParseBoolPipe) templates: boolean,
+    @Query('page') page = 0,
+    @Query('size') size = 10,
   ) {
-    if (templates) return this.cargoService.getTemplates();
+    if (templates) return this.cargoService.getTemplates(page, size);
     else return this.cargoService.getAllByGroup(groupId);
   }
 
