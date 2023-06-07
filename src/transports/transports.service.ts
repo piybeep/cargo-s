@@ -25,26 +25,51 @@ export class TransportsService {
   ) {}
 
   //СОЗДАНИЕ ГРУЗОВОГО ПРОСТРАНСТВА С ТРАНСПОРТОМ
+  // async createLoadSpace(data: CreateLoadSpaceDto) {
+  //   const { autoDistribution, ..._data } = data;
+
+  //   if (data.type === LoadSpaceTypes.Truck) {
+  //     if (!autoDistribution) {
+  //       data.transports.forEach(async (el) => {
+  //         // el.loadSpaceId = loadSpace.id;
+  //         el.weightUnit = _data.weightUnit;
+  //         el.sizeUnit = _data.sizeUnit;
+  //       });
+  //       // await this.createTransport(data.transports);
+  //     } else delete _data.transports;
+  //   }
+  //   const loadSpace = await this.loadSpaceRepository.save(_data);
+  //   const aa = await this.loadSpaceRepository.findOne({
+  //     where: { id: loadSpace.id },
+  //     relations: ['transports'],
+  //   });
+  //   console.log(aa);
+  //   return aa;
+  // }
+
   async createLoadSpace(data: CreateLoadSpaceDto) {
     const { autoDistribution, ..._data } = data;
 
-    if (data.type === LoadSpaceTypes.Truck) {
-      if (!autoDistribution) {
-        data.transports.forEach(async (el) => {
-          // el.loadSpaceId = loadSpace.id;
-          el.weightUnit = _data.weightUnit;
-          el.sizeUnit = _data.sizeUnit;
-        });
-        // await this.createTransport(data.transports);
-      } else delete _data.transports;
+    if (
+      data.type === LoadSpaceTypes.Truck &&
+      !autoDistribution &&
+      data.transports
+    ) {
+      _data.transports = _data.transports.map((el) => ({
+        weightUnit: _data.weightUnit || WeightUnits.Kg,
+        sizeUnit: _data.sizeUnit || SizeUnits.M,
+        ...el,
+      }));
+    } else {
+      _data.transports = [];
     }
+
     const loadSpace = await this.loadSpaceRepository.save(_data);
-    const aa = await this.loadSpaceRepository.findOne({
+
+    return await this.loadSpaceRepository.findOne({
       where: { id: loadSpace.id },
       relations: ['transports'],
     });
-    console.log(aa);
-    return aa;
   }
 
   //СОЗДАНИЕ ТРАНСПОРТА
