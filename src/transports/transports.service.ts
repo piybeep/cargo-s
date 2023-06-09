@@ -87,14 +87,20 @@ export class TransportsService {
     size: number,
     tmp = false,
   ): Promise<GetAllFilteredPaginationResponseDto> {
-    return {
-      data: await this.loadSpaceRepository.find({
+    const loadSpaces = await this.loadSpaceRepository.find({
         where: { isTemplate: tmp },
         // relations: { transports: false },
         take: size,
         skip: size * page,
       }),
+      itemCount = await this.loadSpaceRepository.count({
+        where: { isTemplate: tmp },
+      });
+    return {
+      data: loadSpaces,
       page,
+      itemCount,
+      pageCount: Math.ceil(itemCount / size),
     };
   }
 

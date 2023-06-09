@@ -20,8 +20,6 @@ export class CargoService {
   ) {}
 
   async getAllByGroup(groupId: string) {
-    console.log(groupId);
-    console.log('all');
     const cargos = await this.cargoRepository.find({
       where: { groupId, isTemplate: false },
     });
@@ -34,7 +32,15 @@ export class CargoService {
       skip: page * size,
       take: size,
     });
-    return { data: cargoTemplates, page };
+    const itemCount = await this.cargoRepository.count({
+      where: { isTemplate: true },
+    });
+    return {
+      data: cargoTemplates,
+      page,
+      itemCount,
+      pageCount: Math.ceil(itemCount / size),
+    };
   }
 
   async getOne(id: string) {

@@ -13,4 +13,17 @@ export class GetAllFilteredPaginationResponseDto {
     description: 'Страница',
   })
   page: number;
+
+  @ApiProperty({
+    example: 2,
+    description: 'Общее количество страниц',
+  })
+  pageCount: number;
+
+  @ApiProperty({
+    example: 2,
+    description: 'Общее количество элементов',
+  })
+  itemCount: number;
+
 }
