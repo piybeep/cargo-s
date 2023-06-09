@@ -28,9 +28,13 @@ export class CargoService {
     return cargos;
   }
 
-  async getTemplates(page: number,size: number, ) {
-    const cargoTemplates = await this.cargoRepository.find({ where: { isTemplate: true }, skip: page*size, take:size });
-    return {data: cargoTemplates, page}
+  async getTemplates(page: number, size: number) {
+    const cargoTemplates = await this.cargoRepository.find({
+      where: { isTemplate: true },
+      skip: page * size,
+      take: size,
+    });
+    return { data: cargoTemplates, page };
   }
 
   async getOne(id: string) {
