@@ -25,5 +25,4 @@ export class GetAllFilteredPaginationResponseDto {
     description: 'Общее количество элементов',
   })
   itemCount: number;
-
 }
