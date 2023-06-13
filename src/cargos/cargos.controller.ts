@@ -60,8 +60,8 @@ export class CargosController {
   async getCargosByGroup(
     @Param('groupId', ParseUUIDPipe) groupId: string,
     @Query('templates', ParseBoolPipe) templates: boolean,
-    @Query('page') page: number = 0,
-    @Query('size') size: number = 10,
+    @Query('page') page = 0,
+    @Query('size') size = 10,
   ) {
     if (templates) return this.cargoService.getTemplates(+page, +size);
     else return this.cargoService.getAllByGroup(groupId);

@@ -1,7 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { LoadSpaceTypes, SizeUnits, WeightUnits } from '../enums';
-import { Transport } from '../entities';
-import { Cargo } from 'src/cargos/entities';
 
 export class GetAllFilteredResponseDto {
   @ApiProperty({

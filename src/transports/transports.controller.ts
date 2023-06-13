@@ -72,8 +72,8 @@ export class TransportsController {
   //@UseGuards(JwtGuard)
   @Get('loadspaces')
   async getAllFiltered(
-    @Query('page') page: number = 0,
-    @Query('size') size: number = 10,
+    @Query('page') page = 0,
+    @Query('size') size = 10,
     @Query('tmp') tmp = false,
   ): Promise<GetAllFilteredPaginationResponseDto> {
     return await this.transportsService.getAllFiltered(page, size, tmp);
