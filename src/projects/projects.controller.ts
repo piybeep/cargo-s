@@ -34,6 +34,7 @@ import { ProjectsService } from './projects.service';
 import { Project } from './entities/projects.entity';
 
 @ApiTags('Проекты')
+@UseGuards(JwtGuard)
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
@@ -63,19 +64,16 @@ export class ProjectsController {
     description: 'Направление сортировки',
     required: false,
   })
-  //TODO: ВЫПИЛИТЬ НА ПРОДЕ
-  @ApiQuery({ name: 'userId', description: 'Id пользователя' })
   @ApiResponse({ status: 200, type: GetAllProjectsResponseDto })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  //@UseGuards(JwtGuard)
   @Get()
   async getProjects(
     @Query() data: FindAllProjectsDto,
-    // @Req() req: Request,
+    @Req() req: Request,
   ): Promise<GetAllProjectsResponseDto> {
-    return await this.projectsService.getProjects(data /* req.user */);
+    return await this.projectsService.getProjects(data, req.user);
   }
 
   @ApiOperation({ summary: 'Создание проекта' })
@@ -84,13 +82,12 @@ export class ProjectsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  //@UseGuards(JwtGuard)
   @Post()
   async createProject(
     @Body() data: CreateProjectDto,
     @Req() req: Request,
   ): Promise<Project> {
-    return await this.projectsService.createProject(data /* , req.user */);
+    return await this.projectsService.createProject(data, req.user);
   }
 
   @ApiOperation({ summary: 'Обновление имени проекта' })
@@ -106,7 +103,6 @@ export class ProjectsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  //@UseGuards(JwtGuard)
   @Put(':id')
   async updateProject(
     @Param('id', ParseUUIDPipe) id: string,
@@ -125,7 +121,6 @@ export class ProjectsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  //@UseGuards(JwtGuard)
   @Get(':id')
   async getProject(@Param('id', ParseUUIDPipe) id: string) {
     return await this.projectsService.getProject(id);
@@ -141,7 +136,6 @@ export class ProjectsController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  //@UseGuards(JwtGuard)
   @Delete(':id')
   async deleteProject(@Param('id', ParseUUIDPipe) id: string) {
     return await this.projectsService.deleteProject(id);

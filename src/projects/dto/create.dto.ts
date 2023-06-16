@@ -9,12 +9,4 @@ export class CreateProjectDto {
   @IsString()
   @IsNotEmpty()
   name: string;
-
-  @ApiProperty({
-    example: 'ada8c2c9-533d-4ed1-ba84-53282ad8cfef',
-    description: 'Id пользователя',
-  })
-  @IsUUID()
-  @IsNotEmpty()
-  userId: string;
 }

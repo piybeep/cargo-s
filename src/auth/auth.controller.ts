@@ -59,10 +59,6 @@ export class AuthController {
       token,
       getCookieConfig(userData.rememberMe, this.configService),
     );
-
-    //на проде выпилить
-    res.send({ token, user });
-
     return user;
   }
 
@@ -72,7 +68,7 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 401, description: 'UNAUTHORIZED' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  //@UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Delete('sign')
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     await this.authService.logout(req.user);
@@ -85,7 +81,7 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 401, description: 'UNAUTHORIZED' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  //@UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Get('sessions')
   async getCurrentUser(
     @Req() req: Request,
@@ -97,9 +93,6 @@ export class AuthController {
       token,
       getCookieConfig(session?.rememberMe ?? false, this.configService),
     );
-
-    //на проде выпилить
-    res.send({ token });
   }
 
   @ApiOperation({

@@ -27,11 +27,10 @@ export class ProjectsService {
 
   async getProjects(
     data: FindAllProjectsDto,
-    /* user: any, */
+    user: any,
   ): Promise<GetAllProjectsResponseDto> {
-    // if(user.sub)
-    // const userId = user.sub;
-    const { userId } = data;
+    let userId: string;
+    if (user.sub) userId = user.sub;
     if (!data.searchString) data.searchString = '';
     if (!data.sortDirection) data.sortDirection = SortDirectionEnum.ASC;
     if (!data.sortField) data.sortField = SortFieldsEnum.DateUpdate;
@@ -48,11 +47,8 @@ export class ProjectsService {
     return { data: projects[0], count: projects[1], page: data.page };
   }
 
-  async createProject(data: CreateProjectDto /* , user */): Promise<Project> {
-    const _user = await this.userService.findOne({
-      id: data.userId,
-      /* user.sub */
-    });
+  async createProject(data: CreateProjectDto, user): Promise<Project> {
+    const _user = await this.userService.findOne({ id: user.sub });
     if (!_user) throw new UnauthorizedException('no such user');
     const project: Project = await this.projectRepository.save({
       name: data.name,
@@ -65,7 +61,7 @@ export class ProjectsService {
 
   async updateProject(id: string, data: UpdateProjectDto): Promise<Project> {
     const project = await this.projectRepository.findBy({ id });
-    if (project.length == 0) {
+    if (!project || project.length == 0) {
       throw new BadRequestException(`Проект ${id} не найден`);
     }
     const { affected } = await this.projectRepository.update(

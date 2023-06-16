@@ -69,12 +69,4 @@ export class FindAllProjectsDto {
   @IsNotEmpty()
   @IsEnum(SortDirectionEnum)
   sortDirection: SortDirectionEnum;
-
-  @ApiProperty({
-    example: 'ada8c2c9-533d-4ed1-ba84-53282ad8cfef',
-    description: 'Id пользователя',
-  })
-  @IsUUID()
-  @IsNotEmpty()
-  userId: string;
 }
