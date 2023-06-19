@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsPositive,
   IsString,
+  IsUUID,
 } from 'class-validator';
 import { SortDirectionEnum, SortFieldsEnum } from '../enums';
 import { Type } from 'class-transformer';

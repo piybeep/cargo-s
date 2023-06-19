@@ -26,8 +26,21 @@ export class CargoService {
     return cargos;
   }
 
-  async getTemplates() {
-    return await this.cargoRepository.find({ where: { isTemplate: true } });
+  async getTemplates(page: number, size: number) {
+    const cargoTemplates = await this.cargoRepository.find({
+      where: { isTemplate: true },
+      skip: page * size,
+      take: size,
+    });
+    const itemCount = await this.cargoRepository.count({
+      where: { isTemplate: true },
+    });
+    return {
+      data: cargoTemplates,
+      page,
+      itemCount,
+      pageCount: Math.ceil(itemCount / size),
+    };
   }
 
   async getOne(id: string) {
@@ -43,12 +56,12 @@ export class CargoService {
     let loadSpaces, groups;
     if (groupId) {
       const group = await this.groupService.getOne(groupId);
-      if (!group || group.length === 0) {
+      if (!group) {
         throw new BadRequestException(`group ${groupId} not found`);
       }
       groups = group;
     }
-    if (data.loadSpaceId) {
+    if (data.loadSpaceId && data.loadSpaceId !== null) {
       const loadSpace = await this.transportService.getOneLoadSpace(
         data.loadSpaceId,
       );
@@ -59,12 +72,15 @@ export class CargoService {
       }
       loadSpaces = [loadSpace];
     }
-    return await this.cargoRepository.save({
+
+    const res = await this.cargoRepository.save({
       ...data,
       groupId,
       loadSpaces,
       groups,
     });
+
+    return await this.cargoRepository.findOneBy({ id: res.id });
   }
 
   async updateCargo(id: string, data: UpdateCargoDto) {
@@ -76,7 +92,6 @@ export class CargoService {
       cargo[key] = data[key];
     }
 
-    console.log(cargo);
     await this.cargoRepository.save(cargo);
     return await this.cargoRepository.findOne({
       where: { id },

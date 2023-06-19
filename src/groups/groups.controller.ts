@@ -25,6 +25,7 @@ import { Group } from 'src/groups/entities';
 import { JwtGuard } from 'src/auth/guards/token.guard';
 
 @ApiTags('Группы')
+@UseGuards(JwtGuard)
 @Controller('projects/:projectId/groups')
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
@@ -40,7 +41,6 @@ export class GroupsController {
   @ApiResponse({ status: 201, type: Group })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @UseGuards(JwtGuard)
   @Post()
   async createGroup(@Param('projectId', ParseUUIDPipe) projectId: string) {
     return await this.groupsService.createGroup(projectId);
@@ -63,7 +63,6 @@ export class GroupsController {
   @ApiResponse({ status: 201, type: [Group] })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @UseGuards(JwtGuard)
   @Get()
   async searchGroups(
     @Param('projectId', ParseUUIDPipe) projectId: string,
@@ -76,23 +75,25 @@ export class GroupsController {
     }
   }
 
-  // @ApiCookieAuth('token')
-  // @ApiOperation({
-  //   summary: 'Получение всех групп проекта',
-  // })
-  // @ApiParam({
-  //   name: 'projectId',
-  //   example: 'ada8c2c9-533d-4ed1-ba84-53282ad8cfef',
-  //   description: 'Id проекта',
-  // })
-  // @ApiResponse({ status: 201, type: [Group] })
-  // @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
-  // @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  // @UseGuards(JwtGuard)
-  // @Get()
-  // async getAllGroups(@Param('projectId', ParseUUIDPipe) projectId: string) {
-  //   return await this.groupsService.getAllGroups(projectId);
-  // }
+  @ApiCookieAuth('token')
+  @ApiOperation({ summary: 'Получение группы по id' })
+  @ApiParam({
+    name: 'id',
+    description: 'Id группы',
+    example: 'ada8c2c9-533d-4ed1-ba84-53282ad8cfef',
+  })
+  @ApiParam({
+    name: 'projectId',
+    example: 'ada8c2c9-533d-4ed1-ba84-53282ad8cfef',
+    description: 'Id проекта',
+  })
+  @ApiResponse({ status: 200, type: Group })
+  @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
+  @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
+  @Get(':id')
+  async getGroup(@Param('id', ParseUUIDPipe) id: string): Promise<Group> {
+    return await this.groupsService.getOne(id);
+  }
 
   @ApiCookieAuth('token')
   @ApiOperation({
@@ -114,7 +115,6 @@ export class GroupsController {
   @ApiResponse({ status: 200, type: Group })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @UseGuards(JwtGuard)
   @Put(':id')
   async updateGroup(
     @Param('projectId', ParseUUIDPipe) projectId: string,
@@ -142,7 +142,6 @@ export class GroupsController {
   @ApiResponse({ status: 200, description: 'OK' })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
-  @UseGuards(JwtGuard)
   @Delete(':id')
   async deleteGroup(@Param('id', ParseUUIDPipe) id: string) {
     return await this.groupsService.deleteGroup(id);

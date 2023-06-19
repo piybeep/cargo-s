@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
   ParseUUIDPipe,
   Post,
   Put,
@@ -31,7 +32,7 @@ import { Cargo } from './entities';
 export class CargosController {
   constructor(private readonly cargoService: CargoService) {}
 
-  @ApiOperation({ summary: 'Получение всех грузов одной группы без шаблонов' })
+  @ApiOperation({ summary: 'Получение всех грузов одной группы' })
   @Get()
   @ApiParam({
     name: 'groupId',
@@ -43,14 +44,26 @@ export class CargosController {
     example: true,
     description: 'получение шаблонов грузов',
   })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'номер страницы',
+  })
+  @ApiQuery({
+    name: 'size',
+    required: false,
+    description: 'размер страницы',
+  })
   @ApiResponse({ status: 200, type: [Cargo] })
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   async getCargosByGroup(
     @Param('groupId', ParseUUIDPipe) groupId: string,
-    @Query('templates') templates: boolean,
+    @Query('templates', ParseBoolPipe) templates: boolean,
+    @Query('page') page = 0,
+    @Query('size') size = 10,
   ) {
-    if (!!templates) return this.cargoService.getTemplates();
+    if (templates) return this.cargoService.getTemplates(+page, +size);
     else return this.cargoService.getAllByGroup(groupId);
   }
 
@@ -81,7 +94,6 @@ export class CargosController {
   @ApiResponse({ status: 400, description: 'BAD_REQUEST' })
   @ApiResponse({ status: 500, description: 'INTERNAL_SERVER_ERROR' })
   @ApiCookieAuth('token')
-  @UseGuards(JwtGuard)
   async createCargo(
     @Param('groupId', ParseUUIDPipe) groupId: string,
     @Body() data: CreateCargoDto,

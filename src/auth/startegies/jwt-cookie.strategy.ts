@@ -26,6 +26,9 @@ export class JwtCookieStrategy extends PassportStrategy(
 
   validate(req: Request, payload: any) {
     const token = req.cookies['token'];
+    console.log('validate');
+    console.log(req.cookies);
+    console.log(payload);
     return {
       ...payload,
       token,

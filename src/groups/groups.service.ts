@@ -18,6 +18,8 @@ export class GroupsService {
   //СОЗДАНИЕ ГРУППЫ ПРОЕКТА
   async createGroup(data: string) {
     const project = await this.projectsService.getProject(data);
+    console.log(project, data);
+
     if (!project) {
       throw new BadRequestException(`Project ${data} not found`);
     }
@@ -45,7 +47,7 @@ export class GroupsService {
 
   //ПОЛУЧЕНИЕ ОДНОЙ ГРУППЫ
   async getOne(id: string) {
-    return await this.groupRepository.find({ where: { id } });
+    return await this.groupRepository.findOneBy({ id });
   }
 
   //ПОЛУЧЕНИЕ СОРТИРОВАННОГО СПИСКА ГРУПП ОДНОГО ПРОЕКТА
@@ -57,7 +59,7 @@ export class GroupsService {
     });
     return groups;
   }
-  //
+  //ПОИСК ГРУПП
   async searchGroups(projectId: string, searchString: string) {
     return await this.groupRepository.find({
       where: {
