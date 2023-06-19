@@ -46,7 +46,7 @@ const CookiePROD = (
           : configService.get<number>('EXPIRES_IN_1D')),
     ),
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: 'none',
   };
 };
